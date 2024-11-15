@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,6 +32,10 @@ public class Rota {
     @ManyToOne
     @JoinColumn(name = "origem_id")
     private Origem origem;
+
+    @OneToOne
+    @JoinColumn(name = "entregador_id")
+    private Entregador entregador;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "rota_id")

@@ -10,6 +10,6 @@ import java.util.Optional;
 @Repository
 public interface EntregadorRepository extends JpaRepository<Entregador, Long> {
 
-    Optional<Entregador> findByOrigemCepEnum(CepEnum state);
+    Optional<Entregador> findByCepEnum(CepEnum state);
 
 }

@@ -3,9 +3,11 @@ package com.techchallenge4.ms_logistica.service.v1.implementation;
 import com.techchallenge4.ms_logistica.client.PedidoServiceClient;
 import com.techchallenge4.ms_logistica.enums.CepEnum;
 import com.techchallenge4.ms_logistica.enums.PedidoStatusEnum;
+import com.techchallenge4.ms_logistica.repository.OrigemRepository;
 import com.techchallenge4.ms_logistica.repository.ParadaRepository;
 import com.techchallenge4.ms_logistica.service.v1.EntregasService;
 import com.techchallenge4.ms_logistica.repository.EntregadorRepository;
+import com.techchallenge4.ms_logistica.service.v1.RotaService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,8 +18,9 @@ import org.springframework.stereotype.Service;
 public class EntregasServiceImpl implements EntregasService {
 
     private final PedidoServiceClient pedidoServiceClient;
-    private final OtimizacaoRotaServiceImpl otimizacaoRotaServiceImpl;
+    private final RotaService rotaService;
     private final EntregadorRepository entregadorRepository;
+    private final OrigemRepository origemRepository;
     private final ParadaRepository paradaRepository;
 
     @Override
@@ -31,11 +34,14 @@ public class EntregasServiceImpl implements EntregasService {
             return;
         }
 
-        var entregador = entregadorRepository.findByOrigemCepEnum(state)
+        var entregador = entregadorRepository.findByCepEnum(state)
                 .orElseThrow(() -> new RuntimeException("No Entregador found for state: " + state));
 
+        var origem = origemRepository.findByCepEnum(state)
+                .orElseThrow(() -> new RuntimeException("No Origem found for state: " + state));
+
         try {
-            var optimizedRoute = otimizacaoRotaServiceImpl.optimizeAndSaveRoute(entregador, pedidosPendentes);
+            var optimizedRoute = rotaService.optimizeAndSaveRoute(entregador, origem, pedidosPendentes);
 
             optimizedRoute.getParadas().forEach(parada -> {
                 parada.setStatus(PedidoStatusEnum.PREPARANDO);

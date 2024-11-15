@@ -23,7 +23,7 @@ public class Parada {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String pedidoId;
+    private Long pedidoId;
 
     private Long sequencia;
 

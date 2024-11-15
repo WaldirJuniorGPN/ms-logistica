@@ -1,10 +1,12 @@
 package com.techchallenge4.ms_logistica.mapper;
 
+import com.techchallenge4.ms_logistica.client.request.DirectionsRequest;
 import com.techchallenge4.ms_logistica.client.request.OptimizeRequest;
 import com.techchallenge4.ms_logistica.client.response.PedidoResponse;
 import com.techchallenge4.ms_logistica.configuration.MappingConfig;
 import com.techchallenge4.ms_logistica.domain.Entregador;
 import com.techchallenge4.ms_logistica.domain.Origem;
+import com.techchallenge4.ms_logistica.domain.Rota;
 import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -13,7 +15,7 @@ import org.mapstruct.Named;
 import java.util.List;
 
 @Mapper(config = MappingConfig.class)
-public interface OptimizeMapper {
+public interface OpenRouteServiceMapper {
 
     @Mapping(target = "vehicles", expression = "java(mapVehicle(entregador, origem))")
     @Mapping(target = "jobs", source = "pedidoResponseList", qualifiedByName = "mapJobs")
@@ -38,6 +40,16 @@ public interface OptimizeMapper {
                         .service(300)
                         .amount(pedido.quantidade())
                         .build())
+                .toList();
+    }
+
+    @Mapping(target = "coordinates", source = "rota", qualifiedByName = "mapCoordinates")
+    DirectionsRequest toDirectionsRequest(Rota rota);
+
+    @Named("mapCoordinates")
+    default List<List<Double>> mapCoordinates(Rota rota) {
+        return rota.getParadas().stream()
+                .map(parada -> List.of(parada.getLongitude(), parada.getLatitude()))
                 .toList();
     }
 }
