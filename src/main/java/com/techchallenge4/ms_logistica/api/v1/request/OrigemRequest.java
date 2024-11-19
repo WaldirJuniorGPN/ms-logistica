@@ -7,6 +7,7 @@ public record OrigemRequest(
         String nome,
         String endereco,
         Double latitude,
-        Double longitude
+        Double longitude,
+        String cep
 ) {
 }

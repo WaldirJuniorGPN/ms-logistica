@@ -1,7 +1,7 @@
 package com.techchallenge4.ms_logistica.service.v1.implementation;
 
 import com.techchallenge4.ms_logistica.client.PedidoServiceClient;
-import com.techchallenge4.ms_logistica.enums.CepEnum;
+import com.techchallenge4.ms_logistica.enums.StateEnum;
 import com.techchallenge4.ms_logistica.enums.PedidoStatusEnum;
 import com.techchallenge4.ms_logistica.repository.OrigemRepository;
 import com.techchallenge4.ms_logistica.repository.ParadaRepository;
@@ -24,7 +24,7 @@ public class EntregasServiceImpl implements EntregasService {
     private final ParadaRepository paradaRepository;
 
     @Override
-    public void processDeliveriesForState(CepEnum state) {
+    public void processDeliveriesForState(StateEnum state) {
         log.info("Starting delivery processing for state: {}", state);
 
         var pedidosPendentes = pedidoServiceClient.getPedidos(state, PedidoStatusEnum.PENDENTE);
@@ -34,10 +34,10 @@ public class EntregasServiceImpl implements EntregasService {
             return;
         }
 
-        var entregador = entregadorRepository.findByCepEnum(state)
+        var entregador = entregadorRepository.findByStateEnum(state)
                 .orElseThrow(() -> new RuntimeException("No Entregador found for state: " + state));
 
-        var origem = origemRepository.findByCepEnum(state)
+        var origem = origemRepository.findByRegionEnum(state.getRegionEnum())
                 .orElseThrow(() -> new RuntimeException("No Origem found for state: " + state));
 
         try {

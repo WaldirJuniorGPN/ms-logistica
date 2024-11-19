@@ -1,7 +1,7 @@
 package com.techchallenge4.ms_logistica.client;
 
 import com.techchallenge4.ms_logistica.client.response.PedidoResponse;
-import com.techchallenge4.ms_logistica.enums.CepEnum;
+import com.techchallenge4.ms_logistica.enums.StateEnum;
 import com.techchallenge4.ms_logistica.enums.PedidoStatusEnum;
 import org.springframework.cloud.openfeign.FeignClient;
 
@@ -15,7 +15,7 @@ public interface PedidoServiceClient {
 //    @GetMapping("/v1/pedidos")
 //    List<PedidoResponse> getPedidos(@RequestParam CepEnum cep, @RequestParam PedidoStatus status);
 
-    default List<PedidoResponse> getPedidos(CepEnum cep, PedidoStatusEnum status) {
+    default List<PedidoResponse> getPedidos(StateEnum cep, PedidoStatusEnum status) {
         List<PedidoResponse> pedidos = new ArrayList<>();
         var totalPedidos = 25;
 
