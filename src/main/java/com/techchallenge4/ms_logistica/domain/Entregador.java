@@ -1,6 +1,6 @@
 package com.techchallenge4.ms_logistica.domain;
 
-import com.techchallenge4.ms_logistica.enums.StateEnum;
+import com.techchallenge4.ms_logistica.enums.EstadoEnum;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -33,6 +33,6 @@ public class Entregador {
 
     private String cep;
 
-    private StateEnum stateEnum;
+    private EstadoEnum estado;
 
 }

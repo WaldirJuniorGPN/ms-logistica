@@ -4,8 +4,8 @@ import com.techchallenge4.ms_logistica.api.v1.request.OrigemRequest;
 import com.techchallenge4.ms_logistica.api.v1.response.OrigemResponse;
 import com.techchallenge4.ms_logistica.configuration.MappingConfig;
 import com.techchallenge4.ms_logistica.domain.Origem;
-import com.techchallenge4.ms_logistica.enums.RegionEnum;
-import com.techchallenge4.ms_logistica.enums.StateEnum;
+import com.techchallenge4.ms_logistica.enums.RegiaoEnum;
+import com.techchallenge4.ms_logistica.enums.EstadoEnum;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -17,8 +17,8 @@ import java.util.List;
 public interface OrigemMapper {
 
     @Mapping(target = "cep", source = "cep")
-    @Mapping(target = "stateEnum", source = "cep", qualifiedByName = "cepToStateEnum")
-    @Mapping(target = "regionEnum", source = "cep", qualifiedByName = "cepToRegionEnum")
+    @Mapping(target = "estado", source = "cep", qualifiedByName = "cepToEstado")
+    @Mapping(target = "regiao", source = "cep", qualifiedByName = "cepToRegiao")
     Origem toEntity(OrigemRequest request);
 
     OrigemResponse toResponse(Origem origem);
@@ -27,14 +27,14 @@ public interface OrigemMapper {
 
     List<OrigemResponse> toResponseList(List<Origem> origens);
 
-    @Named("cepToStateEnum")
-    default StateEnum cepToStateEnum(String cep) {
-        return StateEnum.getByCep(cep);
+    @Named("cepToEstado")
+    default EstadoEnum cepToEstado(String cep) {
+        return EstadoEnum.getByCep(cep);
     }
 
-    @Named("cepToRegionEnum")
-    default RegionEnum cepToRegionEnum(String cep) {
-        return StateEnum.getByCep(cep).getRegionEnum();
+    @Named("cepToRegiao")
+    default RegiaoEnum cepToRegiao(String cep) {
+        return EstadoEnum.getByCep(cep).getRegiao();
     }
 
 }

@@ -1,7 +1,7 @@
 package com.techchallenge4.ms_logistica.service.v1.implementation;
 
 import com.techchallenge4.ms_logistica.client.PedidoServiceClient;
-import com.techchallenge4.ms_logistica.enums.StateEnum;
+import com.techchallenge4.ms_logistica.enums.EstadoEnum;
 import com.techchallenge4.ms_logistica.enums.PedidoStatusEnum;
 import com.techchallenge4.ms_logistica.repository.OrigemRepository;
 import com.techchallenge4.ms_logistica.repository.ParadaRepository;
@@ -24,21 +24,21 @@ public class EntregasServiceImpl implements EntregasService {
     private final ParadaRepository paradaRepository;
 
     @Override
-    public void processDeliveriesForState(StateEnum state) {
-        log.info("Starting delivery processing for state: {}", state);
+    public void processDeliveriesForState(EstadoEnum estado) {
+        log.info("Starting delivery processing for state: {}", estado);
 
-        var pedidosPendentes = pedidoServiceClient.getPedidos(state, PedidoStatusEnum.PENDENTE);
+        var pedidosPendentes = pedidoServiceClient.getPedidos(estado, PedidoStatusEnum.PENDENTE);
 
         if (pedidosPendentes.isEmpty()) {
-            log.info("No uninitialized deliveries found for state: {}", state);
+            log.info("No uninitialized deliveries found for state: {}", estado);
             return;
         }
 
-        var entregador = entregadorRepository.findByStateEnum(state)
-                .orElseThrow(() -> new RuntimeException("No Entregador found for state: " + state));
+        var entregador = entregadorRepository.findByEstado(estado)
+                .orElseThrow(() -> new RuntimeException("No Entregador found for state: " + estado));
 
-        var origem = origemRepository.findByRegionEnum(state.getRegionEnum())
-                .orElseThrow(() -> new RuntimeException("No Origem found for state: " + state));
+        var origem = origemRepository.findByRegiao(estado.getRegiao())
+                .orElseThrow(() -> new RuntimeException("No Origem found for state: " + estado));
 
         try {
             var optimizedRoute = rotaService.optimizeAndSaveRoute(entregador, origem, pedidosPendentes);
@@ -48,9 +48,9 @@ public class EntregasServiceImpl implements EntregasService {
                 paradaRepository.save(parada);
             });
 
-            log.info("Successfully processed deliveries for state: {}", state);
+            log.info("Successfully processed deliveries for state: {}", estado);
         } catch (Exception e) {
-            log.error("Error processing deliveries for state: {} - {}", state, e.getMessage(), e);
+            log.error("Error processing deliveries for state: {} - {}", estado, e.getMessage(), e);
         }
     }
 

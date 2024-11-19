@@ -4,7 +4,7 @@ import com.techchallenge4.ms_logistica.api.v1.request.EntregadorRequest;
 import com.techchallenge4.ms_logistica.api.v1.response.EntregadorResponse;
 import com.techchallenge4.ms_logistica.configuration.MappingConfig;
 import com.techchallenge4.ms_logistica.domain.Entregador;
-import com.techchallenge4.ms_logistica.enums.StateEnum;
+import com.techchallenge4.ms_logistica.enums.EstadoEnum;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -15,7 +15,7 @@ import java.util.List;
 @Mapper(config = MappingConfig.class)
 public interface EntregadorMapper {
 
-    @Mapping(target = "stateEnum", source = "cep", qualifiedByName = "cepToStateEnum")
+    @Mapping(target = "estado", source = "cep", qualifiedByName = "cepToEstado")
     Entregador toEntity(EntregadorRequest request);
 
     EntregadorResponse toResponse(Entregador entregador);
@@ -24,9 +24,9 @@ public interface EntregadorMapper {
 
     List<EntregadorResponse> toResponseList(List<Entregador> entregadores);
 
-    @Named("cepToStateEnum")
-    default StateEnum cepToStateEnum(String cep) {
-        return StateEnum.getByCep(cep);
+    @Named("cepToEstado")
+    default EstadoEnum cepToEstado(String cep) {
+        return EstadoEnum.getByCep(cep);
     }
 
 }

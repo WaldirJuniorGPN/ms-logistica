@@ -38,8 +38,7 @@ public class EntregadorServiceImpl implements EntregadorService {
     public EntregadorResponse update(Long id, EntregadorRequest request) {
         var entregador = getEntregadorById(id);
         mapper.updateEntityFromRequest(request, entregador);
-        var updatedEntregador = repository.save(entregador);
-        return mapper.toResponse(updatedEntregador);
+        return mapper.toResponse(repository.save(entregador));
     }
 
     @Override

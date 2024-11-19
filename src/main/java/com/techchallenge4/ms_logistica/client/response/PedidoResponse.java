@@ -1,6 +1,6 @@
 package com.techchallenge4.ms_logistica.client.response;
 
-import com.techchallenge4.ms_logistica.enums.StateEnum;
+import com.techchallenge4.ms_logistica.enums.EstadoEnum;
 import com.techchallenge4.ms_logistica.enums.PedidoStatusEnum;
 import lombok.Builder;
 
@@ -16,6 +16,6 @@ public record PedidoResponse(
         String longitude,
         LocalDateTime dataHoraCriacao,
         PedidoStatusEnum status,
-        StateEnum cep
+        EstadoEnum cep
 ) {
 }

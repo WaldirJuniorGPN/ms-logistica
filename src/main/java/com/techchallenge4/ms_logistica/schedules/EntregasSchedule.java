@@ -1,6 +1,6 @@
 package com.techchallenge4.ms_logistica.schedules;
 
-import com.techchallenge4.ms_logistica.enums.StateEnum;
+import com.techchallenge4.ms_logistica.enums.EstadoEnum;
 import com.techchallenge4.ms_logistica.service.v1.implementation.EntregasServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
@@ -24,13 +24,12 @@ public class EntregasSchedule {
 
     @Scheduled(cron = "0 0 0 * * ?")
     public void scheduleAllStates() {
-        EnumSet.allOf(StateEnum.class).forEach(state -> {
-            int delayMinutes = state.ordinal() * STATE_INTERVAL_MINUTES;
+        EnumSet.allOf(EstadoEnum.class).forEach(state ->
             scheduler.schedule(
                     () -> entregasServiceImpl.processDeliveriesForState(state),
-                    delayMinutes,
+                    state.ordinal() * STATE_INTERVAL_MINUTES,
                     TimeUnit.MINUTES
-            );
-        });
+            )
+        );
     }
 }

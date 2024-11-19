@@ -1,6 +1,6 @@
 package com.techchallenge4.ms_logistica.enums;
 
-public enum RegionEnum {
+public enum RegiaoEnum {
     NORTE,
     NORDESTE,
     CENTRO_OESTE,
