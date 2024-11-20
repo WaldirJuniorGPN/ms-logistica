@@ -1,7 +1,6 @@
 package com.techchallenge4.ms_logistica.service.v1;
 
 import com.techchallenge4.ms_logistica.api.v1.response.RotaResponse;
-import com.techchallenge4.ms_logistica.client.response.DirectionsResponse;
 import com.techchallenge4.ms_logistica.client.response.PedidoResponse;
 import com.techchallenge4.ms_logistica.domain.Entregador;
 import com.techchallenge4.ms_logistica.domain.Origem;
@@ -15,8 +14,7 @@ public interface RotaService {
 
     List<RotaResponse> findByEntregadorId(Long entregadorId);
 
-    List<DirectionsResponse> findDirectionsByEntregadorId(Long entregadorId);
+    void optimizeAndSaveRoute(Entregador entregador, Origem origem, List<PedidoResponse> pedidosPendentes);
 
-    Rota optimizeAndSaveRoute(Entregador entregador, Origem origem, List<PedidoResponse> pedidosPendentes);
-
+    List<Rota> findEntitiesByEntregadorId(Long entregadorId);
 }

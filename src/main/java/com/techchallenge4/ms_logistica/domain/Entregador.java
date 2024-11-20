@@ -35,4 +35,6 @@ public class Entregador {
 
     private EstadoEnum estado;
 
+    private Boolean disponivel;
+
 }

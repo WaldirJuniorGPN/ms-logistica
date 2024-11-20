@@ -3,7 +3,8 @@ package com.techchallenge4.ms_logistica.service.v1.implementation;
 import com.techchallenge4.ms_logistica.api.v1.request.EntregadorRequest;
 import com.techchallenge4.ms_logistica.api.v1.response.EntregadorResponse;
 import com.techchallenge4.ms_logistica.domain.Entregador;
-import com.techchallenge4.ms_logistica.exception.ResourceNotFound;
+import com.techchallenge4.ms_logistica.enums.EstadoEnum;
+import com.techchallenge4.ms_logistica.exception.ResourceNotFoundException;
 import com.techchallenge4.ms_logistica.mapper.EntregadorMapper;
 import com.techchallenge4.ms_logistica.repository.EntregadorRepository;
 import com.techchallenge4.ms_logistica.service.v1.EntregadorService;
@@ -35,10 +36,24 @@ public class EntregadorServiceImpl implements EntregadorService {
     }
 
     @Override
+    public List<Entregador> findByEstadoAndDisponibilidade(EstadoEnum estado, boolean disponibilidade) {
+        var entregadores = repository.findByEstadoAndDisponivel(estado, disponibilidade);
+        if (entregadores.isEmpty()) {
+            throw new ResourceNotFoundException("Nenhum Entregador encontrado para o estado: " + estado + " e disponibilidade: " + disponibilidade);
+        }
+        return entregadores;
+    }
+
+    @Override
     public EntregadorResponse update(Long id, EntregadorRequest request) {
         var entregador = getEntregadorById(id);
         mapper.updateEntityFromRequest(request, entregador);
         return mapper.toResponse(repository.save(entregador));
+    }
+
+    @Override
+    public void updateEntity(Entregador entregador) {
+        repository.save(entregador);
     }
 
     @Override
@@ -47,7 +62,7 @@ public class EntregadorServiceImpl implements EntregadorService {
     }
 
     private Entregador getEntregadorById(Long id) {
-        return repository.findById(id).orElseThrow(() -> new ResourceNotFound("Entregador not found"));
+        return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Entregador nao encontrado"));
     }
 
 }

@@ -5,11 +5,11 @@ import com.techchallenge4.ms_logistica.enums.EstadoEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+import java.util.List;
 
 @Repository
 public interface EntregadorRepository extends JpaRepository<Entregador, Long> {
 
-    Optional<Entregador> findByEstado(EstadoEnum estado);
+    List<Entregador> findByEstadoAndDisponivel(EstadoEnum estado, boolean disponivel);
 
 }

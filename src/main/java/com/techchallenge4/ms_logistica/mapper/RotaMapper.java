@@ -7,6 +7,7 @@ import com.techchallenge4.ms_logistica.domain.Entregador;
 import com.techchallenge4.ms_logistica.domain.Origem;
 import com.techchallenge4.ms_logistica.domain.Parada;
 import com.techchallenge4.ms_logistica.domain.Rota;
+import com.techchallenge4.ms_logistica.enums.PedidoStatusEnum;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -23,6 +24,7 @@ public interface RotaMapper {
     RotaResponse toRotaResponse(Rota rota);
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "status", constant = "PENDENTE")
     @Mapping(target = "paradas", source = "route.steps", qualifiedByName = "mapParadas")
     Rota toRota(OptimizeResponse.Route route, Entregador entregador, Origem origem);
 
@@ -41,6 +43,7 @@ public interface RotaMapper {
 
         return Parada.builder()
                 .sequencia(sequencia)
+                .status(PedidoStatusEnum.PENDENTE)
                 .latitude(latitude)
                 .longitude(longitude)
                 .pedidoId(nonNull(step.getJob()) ? Long.valueOf(step.getJob()) : null)

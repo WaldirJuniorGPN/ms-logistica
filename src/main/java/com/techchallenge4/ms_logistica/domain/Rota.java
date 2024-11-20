@@ -1,5 +1,6 @@
 package com.techchallenge4.ms_logistica.domain;
 
+import com.techchallenge4.ms_logistica.enums.RotaStatusEnum;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,6 +29,8 @@ public class Rota {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private RotaStatusEnum status;
 
     @ManyToOne
     @JoinColumn(name = "origem_id")

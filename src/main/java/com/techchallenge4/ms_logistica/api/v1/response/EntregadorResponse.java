@@ -11,6 +11,7 @@ public record EntregadorResponse(
         String contato,
         Integer capacidade,
         String cep,
-        EstadoEnum estado
+        EstadoEnum estado,
+        Boolean disponivel
 ) {
 }

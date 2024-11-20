@@ -3,7 +3,8 @@ package com.techchallenge4.ms_logistica.service.v1.implementation;
 import com.techchallenge4.ms_logistica.api.v1.request.OrigemRequest;
 import com.techchallenge4.ms_logistica.api.v1.response.OrigemResponse;
 import com.techchallenge4.ms_logistica.domain.Origem;
-import com.techchallenge4.ms_logistica.exception.ResourceNotFound;
+import com.techchallenge4.ms_logistica.enums.RegiaoEnum;
+import com.techchallenge4.ms_logistica.exception.ResourceNotFoundException;
 import com.techchallenge4.ms_logistica.mapper.OrigemMapper;
 import com.techchallenge4.ms_logistica.repository.OrigemRepository;
 import com.techchallenge4.ms_logistica.service.v1.OrigemService;
@@ -30,6 +31,12 @@ public class OrigemServiceImpl implements OrigemService {
     }
 
     @Override
+    public Origem findByRegiao(RegiaoEnum regiao) {
+        return repository.findByRegiao(regiao)
+                .orElseThrow(() -> new RuntimeException("Nenhnuma Origem cadastrada encontrada para a regiao: " + regiao));
+    }
+
+    @Override
     public OrigemResponse findById(Long id) {
         return mapper.toResponse(getOrigemById(id));
     }
@@ -47,7 +54,7 @@ public class OrigemServiceImpl implements OrigemService {
     }
 
     private Origem getOrigemById(Long id) {
-        return repository.findById(id).orElseThrow(() -> new ResourceNotFound("Origem not found"));
+        return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Origem not found"));
     }
 
 }

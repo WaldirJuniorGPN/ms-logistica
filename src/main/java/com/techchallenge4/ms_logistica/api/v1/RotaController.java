@@ -1,7 +1,6 @@
 package com.techchallenge4.ms_logistica.api.v1;
 
 import com.techchallenge4.ms_logistica.api.v1.response.RotaResponse;
-import com.techchallenge4.ms_logistica.client.response.DirectionsResponse;
 import com.techchallenge4.ms_logistica.service.v1.RotaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -27,11 +26,6 @@ public class RotaController {
     @GetMapping("/entregador/{entregadorId}")
     public ResponseEntity<List<RotaResponse>> getRotaByEntregadorId(@PathVariable Long entregadorId) {
         return ResponseEntity.ok(service.findByEntregadorId(entregadorId));
-    }
-
-    @GetMapping("/directions/entregador/{entregadorId}")
-    public ResponseEntity<List<DirectionsResponse>> getDirectionsByEntregadorId(@PathVariable Long entregadorId) {
-        return ResponseEntity.ok(service.findDirectionsByEntregadorId(entregadorId));
     }
 
 }
