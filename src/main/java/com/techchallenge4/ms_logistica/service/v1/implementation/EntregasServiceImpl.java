@@ -11,6 +11,7 @@ import com.techchallenge4.ms_logistica.service.v1.RotaService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
@@ -23,6 +24,7 @@ public class EntregasServiceImpl implements EntregasService {
     private final OrigemService origemService;
 
     @Override
+    @Transactional
     public void processDeliveriesForState(EstadoEnum estado) {
         try {
             log.info("Starting delivery processing for state: {}", estado);
@@ -40,8 +42,7 @@ public class EntregasServiceImpl implements EntregasService {
 
             rotaService.optimizeAndSaveRoute(entregador, origem, pedidosPendentes);
 
-            entregador.setDisponivel(false);
-            entregadorService.updateEntity(entregador);
+            entregadorService.bloquearEntregador(entregador);
         } catch (Exception e) {
             log.error("Error processing deliveries for state: {}", estado, e);
             throw new ProcessamentoEntregasException(e);

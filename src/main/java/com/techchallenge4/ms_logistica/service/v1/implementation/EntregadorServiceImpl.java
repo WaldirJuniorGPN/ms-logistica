@@ -52,13 +52,23 @@ public class EntregadorServiceImpl implements EntregadorService {
     }
 
     @Override
-    public void updateEntity(Entregador entregador) {
-        repository.save(entregador);
+    public void bloquearEntregador(Entregador entregador) {
+        updateDisponibilidade(entregador, false);
+    }
+
+    @Override
+    public void liberarEntregador(Entregador entregador) {
+        updateDisponibilidade(entregador, true);
     }
 
     @Override
     public void delete(Long id) {
         repository.deleteById(id);
+    }
+
+    private void updateDisponibilidade(Entregador entregador, boolean disponivel) {
+        entregador.setDisponivel(disponivel);
+        repository.save(entregador);
     }
 
     private Entregador getEntregadorById(Long id) {

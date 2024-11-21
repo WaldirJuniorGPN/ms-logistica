@@ -13,9 +13,11 @@ public interface EntregadorService {
 
     EntregadorResponse update(Long id, EntregadorRequest request);
 
-    void updateEntity(Entregador entregador);
-
     EntregadorResponse findById(Long id);
+
+    void bloquearEntregador(Entregador entregador);
+
+    void liberarEntregador(Entregador entregador);
 
     void delete(Long id);
 
