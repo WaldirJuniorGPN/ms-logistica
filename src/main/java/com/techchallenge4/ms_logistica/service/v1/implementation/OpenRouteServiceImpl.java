@@ -6,6 +6,8 @@ import com.techchallenge4.ms_logistica.client.response.OptimizeResponse;
 import com.techchallenge4.ms_logistica.client.response.PedidoResponse;
 import com.techchallenge4.ms_logistica.domain.Entregador;
 import com.techchallenge4.ms_logistica.domain.Origem;
+import com.techchallenge4.ms_logistica.domain.Parada;
+import com.techchallenge4.ms_logistica.domain.Rastreamento;
 import com.techchallenge4.ms_logistica.domain.Rota;
 import com.techchallenge4.ms_logistica.mapper.OpenRouteServiceMapper;
 import com.techchallenge4.ms_logistica.service.v1.OpenRouteService;
@@ -29,8 +31,13 @@ public class OpenRouteServiceImpl implements OpenRouteService {
     }
 
     @Override
-    public DirectionsResponse getDirections(Rota rota) {
+    public DirectionsResponse getDirectionsByRota(Rota rota) {
         return client.getDirections(DEFAULT_PROFILE, mapper.toDirectionsRequest(rota));
+    }
+
+    @Override
+    public DirectionsResponse getDirectionsByRastreamentoAndParada(Rastreamento rastreamento, Parada parada) {
+        return client.getDirections(DEFAULT_PROFILE, mapper.toDirectionsRequest(rastreamento, parada));
     }
 
 }

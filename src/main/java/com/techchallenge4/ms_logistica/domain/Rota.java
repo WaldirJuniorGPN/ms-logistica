@@ -17,6 +17,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Optional;
 
 @Getter
 @Setter
@@ -43,5 +44,11 @@ public class Rota {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "rota_id")
     private List<Parada> paradas;
+
+    public Optional<Parada> getParadaByPedidoId(Long pedidoId) {
+        return this.paradas.stream()
+                .filter(parada -> parada.getPedidoId().equals(pedidoId))
+                .findFirst();
+    }
 
 }

@@ -16,5 +16,9 @@ public interface RotaService {
 
     void optimizeAndSaveRoute(Entregador entregador, Origem origem, List<PedidoResponse> pedidosPendentes);
 
+    Rota findEntityById(Long rotaId);
+
+    Rota findEntityByPedidoId(Long pedidoId);
+
     List<Rota> findEntitiesByEntregadorId(Long entregadorId);
 }
