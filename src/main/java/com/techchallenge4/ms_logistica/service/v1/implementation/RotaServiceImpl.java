@@ -6,9 +6,11 @@ import com.techchallenge4.ms_logistica.client.response.PedidoResponse;
 import com.techchallenge4.ms_logistica.domain.Entregador;
 import com.techchallenge4.ms_logistica.domain.Origem;
 import com.techchallenge4.ms_logistica.domain.Rota;
+import com.techchallenge4.ms_logistica.enums.RotaStatusEnum;
 import com.techchallenge4.ms_logistica.exception.ResourceNotFoundException;
 import com.techchallenge4.ms_logistica.mapper.RotaMapper;
 import com.techchallenge4.ms_logistica.repository.RotaRepository;
+import com.techchallenge4.ms_logistica.service.v1.EntregadorService;
 import com.techchallenge4.ms_logistica.service.v1.OpenRouteService;
 import com.techchallenge4.ms_logistica.service.v1.RotaService;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,7 @@ import java.util.List;
 public class RotaServiceImpl implements RotaService {
 
     private final OpenRouteService openRouteService;
+    private final EntregadorService entregadorService;
     private final RotaMapper mapper;
     private final RotaRepository repository;
 
@@ -64,6 +67,18 @@ public class RotaServiceImpl implements RotaService {
     @Override
     public List<Rota> findEntitiesByEntregadorId(Long entregadorId) {
         return getByEntregadorId(entregadorId);
+    }
+
+    @Override
+    public List<Rota> findByStatus(RotaStatusEnum status) {
+        return repository.findAllByStatus(status);
+    }
+
+    @Override
+    public void finalizarRota(Rota rota) {
+        rota.setStatus(RotaStatusEnum.FINALIZADA);
+        entregadorService.liberarEntregador(rota.getEntregador());
+        repository.save(rota);
     }
 
     private void saveRouteAndStops(OptimizeResponse optimizeResponse, Entregador entregador, Origem origem) {

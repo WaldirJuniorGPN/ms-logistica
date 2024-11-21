@@ -19,6 +19,8 @@ import lombok.Setter;
 import java.util.List;
 import java.util.Optional;
 
+import static org.apache.commons.lang3.ObjectUtils.isNotEmpty;
+
 @Getter
 @Setter
 @Builder
@@ -49,6 +51,10 @@ public class Rota {
         return this.paradas.stream()
                 .filter(parada -> parada.getPedidoId().equals(pedidoId))
                 .findFirst();
+    }
+
+    public boolean isRotaFinalizada() {
+        return isNotEmpty(this.paradas) && this.paradas.stream().allMatch(Parada::isEntregaFinalizada);
     }
 
 }

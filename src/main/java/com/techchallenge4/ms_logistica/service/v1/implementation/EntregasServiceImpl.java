@@ -1,8 +1,10 @@
 package com.techchallenge4.ms_logistica.service.v1.implementation;
 
 import com.techchallenge4.ms_logistica.client.PedidoServiceClient;
+import com.techchallenge4.ms_logistica.domain.Rota;
 import com.techchallenge4.ms_logistica.enums.EstadoEnum;
 import com.techchallenge4.ms_logistica.enums.PedidoStatusEnum;
+import com.techchallenge4.ms_logistica.enums.RotaStatusEnum;
 import com.techchallenge4.ms_logistica.exception.ProcessamentoEntregasException;
 import com.techchallenge4.ms_logistica.service.v1.EntregadorService;
 import com.techchallenge4.ms_logistica.service.v1.EntregasService;
@@ -25,14 +27,14 @@ public class EntregasServiceImpl implements EntregasService {
 
     @Override
     @Transactional
-    public void processDeliveriesForState(EstadoEnum estado) {
+    public void processarPedidosPorEstado(EstadoEnum estado) {
         try {
-            log.info("Starting delivery processing for state: {}", estado);
+            log.info("Iniciando processamento de pedidos para o estado: {}", estado);
 
             var pedidosPendentes = pedidoServiceClient.getPedidos(estado, PedidoStatusEnum.PENDENTE);
 
             if (pedidosPendentes.isEmpty()) {
-                log.info("No uninitialized deliveries found for state: {}", estado);
+                log.info("Nenhuma entrega pendente para o estado: {}", estado);
                 return;
             }
 
@@ -43,8 +45,25 @@ public class EntregasServiceImpl implements EntregasService {
             rotaService.optimizeAndSaveRoute(entregador, origem, pedidosPendentes);
 
             entregadorService.bloquearEntregador(entregador);
+
         } catch (Exception e) {
-            log.error("Error processing deliveries for state: {}", estado, e);
+            log.error("Erro ao processar pedidos para o estado: {}", estado, e);
+            throw new ProcessamentoEntregasException(e);
+        }
+    }
+
+    @Override
+    @Transactional
+    public void finalizarPedidos() {
+        try {
+            log.info("Liberando entregadores");
+
+            rotaService.findByStatus(RotaStatusEnum.EM_ANDAMENTO).stream()
+                    .filter(Rota::isRotaFinalizada)
+                    .forEach(rotaService::finalizarRota);
+
+        } catch (Exception e) {
+            log.error("Erro ao liberar entregadores", e);
             throw new ProcessamentoEntregasException(e);
         }
     }

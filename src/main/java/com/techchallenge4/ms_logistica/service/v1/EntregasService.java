@@ -4,6 +4,8 @@ import com.techchallenge4.ms_logistica.enums.EstadoEnum;
 
 public interface EntregasService {
 
-    void processDeliveriesForState(EstadoEnum state);
+    void processarPedidosPorEstado(EstadoEnum state);
+
+    void finalizarPedidos();
 
 }

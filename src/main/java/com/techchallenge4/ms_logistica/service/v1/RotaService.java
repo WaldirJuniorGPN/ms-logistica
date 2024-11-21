@@ -5,6 +5,7 @@ import com.techchallenge4.ms_logistica.client.response.PedidoResponse;
 import com.techchallenge4.ms_logistica.domain.Entregador;
 import com.techchallenge4.ms_logistica.domain.Origem;
 import com.techchallenge4.ms_logistica.domain.Rota;
+import com.techchallenge4.ms_logistica.enums.RotaStatusEnum;
 
 import java.util.List;
 
@@ -21,4 +22,9 @@ public interface RotaService {
     Rota findEntityByPedidoId(Long pedidoId);
 
     List<Rota> findEntitiesByEntregadorId(Long entregadorId);
+
+    List<Rota> findByStatus(RotaStatusEnum rotaStatusEnum);
+
+    void finalizarRota(Rota rota);
+
 }

@@ -11,6 +11,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import static java.util.Objects.nonNull;
+
 @Getter
 @Setter
 @Builder
@@ -36,5 +38,9 @@ public class Parada {
     private PedidoStatusEnum status;
 
     private String observacao;
+
+    public boolean isEntregaFinalizada() {
+        return nonNull(this.status) && (this.status.equals(PedidoStatusEnum.ENTREGUE) || this.status.equals(PedidoStatusEnum.CANCELADO));
+    }
 
 }
