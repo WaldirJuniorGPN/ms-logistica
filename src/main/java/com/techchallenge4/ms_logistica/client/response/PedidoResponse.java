@@ -16,6 +16,6 @@ public record PedidoResponse(
         String longitude,
         LocalDateTime dataHoraCriacao,
         PedidoStatusEnum status,
-        EstadoEnum cep
+        EstadoEnum estado
 ) {
 }

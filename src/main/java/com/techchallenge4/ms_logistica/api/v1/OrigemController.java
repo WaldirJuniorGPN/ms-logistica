@@ -18,7 +18,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1/origem")
+@RequestMapping("/origem")
 public class OrigemController {
 
     private final OrigemService service;

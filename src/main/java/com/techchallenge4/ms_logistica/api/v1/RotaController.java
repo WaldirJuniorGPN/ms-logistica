@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1/rota")
+@RequestMapping("/rota")
 public class RotaController {
 
     private final RotaService service;

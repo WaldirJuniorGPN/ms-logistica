@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1/parada")
+@RequestMapping("/parada")
 public class ParadaController {
 
     private final ParadaService service;

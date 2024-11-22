@@ -15,9 +15,15 @@ import java.util.List;
 public class PedidoServiceClientFallback implements PedidoServiceClient {
 
     @Override
-    public List<PedidoResponse> getPedidos(EstadoEnum cep, PedidoStatusEnum status) {
-        log.error("Error fetching pedidos from PedidoServiceClient for cep: {} and status: {}", cep, status);
+    public List<PedidoResponse> getPedidosByEstadoEStatus(EstadoEnum estado, PedidoStatusEnum status) {
+        log.error("Error fetching pedidos from PedidoServiceClient for estado: {} and status: {}", estado, status);
         return Collections.emptyList();
+    }
+
+    @Override
+    public PedidoResponse updatePedidoStatus(Long id, PedidoStatusEnum status) {
+        log.error("Error updating pedido status from PedidoServiceClient for pedidoId: {} and status: {}", id, status);
+        return null;
     }
 
 }

@@ -16,9 +16,8 @@ import java.util.List;
 @Mapper(config = MappingConfig.class)
 public interface OrigemMapper {
 
-    @Mapping(target = "cep", source = "cep")
-    @Mapping(target = "estado", source = "cep", qualifiedByName = "cepToEstado")
-    @Mapping(target = "regiao", source = "cep", qualifiedByName = "cepToRegiao")
+    @Mapping(target = "estado", source = "request.cep", qualifiedByName = "cepToEstado")
+    @Mapping(target = "regiao", source = "request.cep", qualifiedByName = "cepToRegiao")
     Origem toEntity(OrigemRequest request);
 
     OrigemResponse toResponse(Origem origem);

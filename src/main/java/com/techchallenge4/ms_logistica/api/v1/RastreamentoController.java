@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1/rastreamento")
+@RequestMapping("/rastreamento")
 public class RastreamentoController {
 
     private final RastreamentoService service;

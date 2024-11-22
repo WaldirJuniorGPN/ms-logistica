@@ -18,7 +18,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1/entregador")
+@RequestMapping("/entregador")
 public class EntregadorController {
 
     private final EntregadorService service;

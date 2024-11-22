@@ -15,7 +15,7 @@ import java.util.List;
 @Mapper(config = MappingConfig.class)
 public interface EntregadorMapper {
 
-    @Mapping(target = "estado", source = "cep", qualifiedByName = "cepToEstado")
+    @Mapping(target = "estado", source = "request.cep", qualifiedByName = "cepToEstado")
     Entregador toEntity(EntregadorRequest request);
 
     EntregadorResponse toResponse(Entregador entregador);

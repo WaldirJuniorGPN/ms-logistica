@@ -31,7 +31,7 @@ public class EntregasServiceImpl implements EntregasService {
         try {
             log.info("Iniciando processamento de pedidos para o estado: {}", estado);
 
-            var pedidosPendentes = pedidoServiceClient.getPedidos(estado, PedidoStatusEnum.PENDENTE);
+            var pedidosPendentes = pedidoServiceClient.getPedidosByEstadoEStatus(estado, PedidoStatusEnum.PENDENTE);
 
             if (pedidosPendentes.isEmpty()) {
                 log.info("Nenhuma entrega pendente para o estado: {}", estado);
