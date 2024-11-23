@@ -9,4 +9,4 @@ ARG JAR_FILE=target/*.jar
 COPY --from=build /ms-logistica/${JAR_FILE} /ms-logistica/ms-logistica.jar
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "/reserva/reserva.jar"]
+ENTRYPOINT ["java", "-jar", "/ms-logistica/ms-logistica.jar"]

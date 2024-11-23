@@ -22,8 +22,8 @@ public class OptimizeRequest {
     @AllArgsConstructor
     public static class Vehicle {
         private String id;
-        private List<String> start;
-        private List<String> end;
+        private List<Double> start;
+        private List<Double> end;
         private Integer capacity;
     }
 

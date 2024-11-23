@@ -1,4 +1,4 @@
-package com.techchallenge4.ms_logistica.service.v1.implementation;
+package com.techchallenge4.ms_logistica.service.v1.impl;
 
 import com.techchallenge4.ms_logistica.api.v1.request.OrigemRequest;
 import com.techchallenge4.ms_logistica.api.v1.response.OrigemResponse;

@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://dpg-csdebu5svqrc738u7kag-a.virginia-postgres.render.com/postech_ecommerce
-    username: postech_ecommerce_user
-    password: bFfwVRCvIkByuE0hKDlQPasPP5zgJ5Bv
+    url: jdbc:postgresql://${POSTGRES_HOST}/${POSTGRES_DATABASE}?autoReconnect=true
+    username: ${POSTGRES_USERNAME}
+    password: ${POSTGRES_PASSWORD}
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
@@ -13,4 +13,4 @@ services:
     url: https://render.com
   open-route-service:
     url: https://api.openrouteservice.org
-    api-key: ''
+    api-key: ${OPENROUTE_API_KEY}

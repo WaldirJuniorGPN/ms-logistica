@@ -15,6 +15,7 @@ import java.util.List;
 @Mapper(config = MappingConfig.class)
 public interface EntregadorMapper {
 
+    @Mapping(target = "disponivel", constant = "true")
     @Mapping(target = "estado", source = "request.cep", qualifiedByName = "cepToEstado")
     Entregador toEntity(EntregadorRequest request);
 

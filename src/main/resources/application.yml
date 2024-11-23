@@ -19,7 +19,7 @@ spring:
 
 services:
   pedido-service:
-    url: https://render.com
+    url: https://localhost:8081
   open-route-service:
     url: https://api.openrouteservice.org
     api-key: ''
