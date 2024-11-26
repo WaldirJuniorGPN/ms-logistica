@@ -6,9 +6,9 @@ import com.techchallenge4.ms_logistica.domain.Entregador;
 import com.techchallenge4.ms_logistica.enums.EstadoEnum;
 import com.techchallenge4.ms_logistica.mapper.EntregadorMapper;
 import com.techchallenge4.ms_logistica.utils.EntregadorUtils;
+import com.techchallenge4.ms_logistica.utils.MapperUtils;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.mapstruct.factory.Mappers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class EntregadorMapperTest {
 
-    private final EntregadorMapper mapper = Mappers.getMapper(EntregadorMapper.class);
+    private final EntregadorMapper mapper = MapperUtils.entregadorMapper();
 
     @Nested
     class ToEntity {

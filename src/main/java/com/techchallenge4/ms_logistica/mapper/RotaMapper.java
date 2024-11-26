@@ -8,6 +8,7 @@ import com.techchallenge4.ms_logistica.domain.Origem;
 import com.techchallenge4.ms_logistica.domain.Parada;
 import com.techchallenge4.ms_logistica.domain.Rota;
 import com.techchallenge4.ms_logistica.enums.PedidoStatusEnum;
+import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -16,7 +17,9 @@ import java.util.List;
 
 import static java.util.Objects.nonNull;
 
-@Mapper(config = MappingConfig.class, uses = {ParadaMapper.class, OrigemMapper.class})
+@Mapper(config = MappingConfig.class,
+        builder = @Builder(disableBuilder = true),
+        uses = {ParadaMapper.class, OrigemMapper.class})
 public interface RotaMapper {
 
     String JOB = "job";

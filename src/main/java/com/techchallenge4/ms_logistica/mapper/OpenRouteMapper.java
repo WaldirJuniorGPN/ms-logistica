@@ -17,7 +17,7 @@ import org.mapstruct.Named;
 import java.util.List;
 
 @Mapper(config = MappingConfig.class)
-public interface OpenRouteServiceMapper {
+public interface OpenRouteMapper {
 
     @Mapping(target = "vehicles", expression = "java(mapVehicle(entregador, origem))")
     @Mapping(target = "jobs", source = "pedidoResponseList", qualifiedByName = "mapJobs")
@@ -46,7 +46,7 @@ public interface OpenRouteServiceMapper {
     }
 
     @Mapping(target = "coordinates", source = "rota", qualifiedByName = "mapCoordinates")
-    DirectionsRequest toDirectionsRequest(Rota rota);
+    DirectionsRequest toDirectionsRequestFromRota(Rota rota);
 
     @Named("mapCoordinates")
     default List<List<Double>> mapCoordinates(Rota rota) {
@@ -56,7 +56,7 @@ public interface OpenRouteServiceMapper {
     }
 
     @Mapping(target = "coordinates", expression = "java(mapCoordinates(rastreamento, parada))")
-    DirectionsRequest toDirectionsRequest(Rastreamento rastreamento, Parada parada);
+    DirectionsRequest toDirectionsRequestFromRastreamentoAndParada(Rastreamento rastreamento, Parada parada);
 
     default List<List<Double>> mapCoordinates(Rastreamento rastreamento, Parada parada) {
         return List.of(

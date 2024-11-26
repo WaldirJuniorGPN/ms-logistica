@@ -6,17 +6,17 @@ import com.techchallenge4.ms_logistica.domain.Origem;
 import com.techchallenge4.ms_logistica.enums.EstadoEnum;
 import com.techchallenge4.ms_logistica.enums.RegiaoEnum;
 import com.techchallenge4.ms_logistica.mapper.OrigemMapper;
+import com.techchallenge4.ms_logistica.utils.MapperUtils;
 import com.techchallenge4.ms_logistica.utils.OrigemUtils;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.mapstruct.factory.Mappers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class OrigemMapperTest {
 
-    private final OrigemMapper mapper = Mappers.getMapper(OrigemMapper.class);
+    private final OrigemMapper mapper = MapperUtils.origemMapper();
 
     @Nested
     class ToEntity {
@@ -49,7 +49,6 @@ class OrigemMapperTest {
             assertNotNull(result);
             assertEquals(estadoEsperado, result.getEstado());
         }
-
         @Test
         void shouldMapCepToRegiao() {
             // Given

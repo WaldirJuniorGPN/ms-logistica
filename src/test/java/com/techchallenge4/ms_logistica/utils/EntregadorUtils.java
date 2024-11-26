@@ -1,6 +1,7 @@
 package com.techchallenge4.ms_logistica.utils;
 
 import com.techchallenge4.ms_logistica.api.v1.request.EntregadorRequest;
+import com.techchallenge4.ms_logistica.api.v1.response.EntregadorResponse;
 import com.techchallenge4.ms_logistica.domain.Entregador;
 import com.techchallenge4.ms_logistica.enums.EstadoEnum;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,19 @@ import java.util.List;
 
 @NoArgsConstructor
 public class EntregadorUtils {
+
+    public static EntregadorResponse buildEntregadorResponse() {
+        return EntregadorResponse.builder()
+                .id(1L)
+                .nome("nome")
+                .cpf("cpf")
+                .contato("contato")
+                .capacidade(100)
+                .cep("02435-060")
+                .estado(EstadoEnum.SP)
+                .disponivel(true)
+                .build();
+    }
 
     public static EntregadorRequest buildEntregadorRequest() {
         return EntregadorRequest.builder()

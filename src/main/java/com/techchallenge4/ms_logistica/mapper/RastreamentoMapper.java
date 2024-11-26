@@ -11,6 +11,8 @@ import org.mapstruct.MappingTarget;
 @Mapper(config = MappingConfig.class)
 public interface RastreamentoMapper {
 
+    @Mapping(target = "ultimaLatitude", source = "request.latitude")
+    @Mapping(target = "ultimaLongitude", source = "request.longitude")
     Rastreamento toEntity(RastreamentoRequest request);
 
     @Mapping(target = "id", ignore = true)
@@ -19,6 +21,7 @@ public interface RastreamentoMapper {
     @Mapping(target = "ultimaLongitude", source = "request.longitude")
     void updateUltimaPosicao(@MappingTarget Rastreamento rastreamento, RastreamentoRequest request);
 
+    @Mapping(target = "rotaId", source = "rastreamento.rota.id")
     RastreamentoResponse toResponse(Rastreamento rastreamento);
 
 }

@@ -1,14 +1,30 @@
 package com.techchallenge4.ms_logistica.utils;
 
 import com.techchallenge4.ms_logistica.api.v1.request.OrigemRequest;
+import com.techchallenge4.ms_logistica.api.v1.response.OrigemResponse;
 import com.techchallenge4.ms_logistica.domain.Origem;
 import com.techchallenge4.ms_logistica.enums.EstadoEnum;
 import com.techchallenge4.ms_logistica.enums.RegiaoEnum;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@NoArgsConstructor
 public class OrigemUtils {
+
+    public static OrigemResponse buildOrigemResponse() {
+        return OrigemResponse.builder()
+                .id(1L)
+                .nome("nome")
+                .endereco("endereco")
+                .latitude(1.0)
+                .longitude(1.0)
+                .cep("02435-060")
+                .estado(EstadoEnum.SP)
+                .regiao(RegiaoEnum.SUDESTE)
+                .build();
+    }
 
     public static OrigemRequest buildOrigemRequest() {
         return OrigemRequest.builder()

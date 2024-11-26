@@ -1,16 +1,19 @@
 package com.techchallenge4.ms_logistica.client.response;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
+@Builder
 public class OptimizeResponse {
     private Integer code;
     private Summary summary;
     private List<Route> routes;
 
     @Data
+    @Builder
     public static class Summary {
         private Integer cost;
         private Integer routes;
@@ -35,6 +38,7 @@ public class OptimizeResponse {
     }
 
     @Data
+    @Builder
     public static class Route {
         private Integer vehicle;
         private Integer cost;
@@ -50,6 +54,7 @@ public class OptimizeResponse {
         private List<Object> violations;
 
         @Data
+        @Builder
         public static class Step {
             private String type;
             private List<Double> location;

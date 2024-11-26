@@ -9,7 +9,7 @@ import com.techchallenge4.ms_logistica.domain.Origem;
 import com.techchallenge4.ms_logistica.domain.Parada;
 import com.techchallenge4.ms_logistica.domain.Rastreamento;
 import com.techchallenge4.ms_logistica.domain.Rota;
-import com.techchallenge4.ms_logistica.mapper.OpenRouteServiceMapper;
+import com.techchallenge4.ms_logistica.mapper.OpenRouteMapper;
 import com.techchallenge4.ms_logistica.service.v1.OpenRouteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ public class OpenRouteServiceImpl implements OpenRouteService {
 
     private static final String DEFAULT_PROFILE = "driving-car";
 
-    private final OpenRouteServiceMapper mapper;
+    private final OpenRouteMapper mapper;
     private final OpenRouteServiceClient client;
 
     @Override
@@ -32,12 +32,12 @@ public class OpenRouteServiceImpl implements OpenRouteService {
 
     @Override
     public DirectionsResponse getDirectionsByRota(Rota rota) {
-        return client.getDirections(DEFAULT_PROFILE, mapper.toDirectionsRequest(rota));
+        return client.getDirections(DEFAULT_PROFILE, mapper.toDirectionsRequestFromRota(rota));
     }
 
     @Override
     public DirectionsResponse getDirectionsByRastreamentoAndParada(Rastreamento rastreamento, Parada parada) {
-        return client.getDirections(DEFAULT_PROFILE, mapper.toDirectionsRequest(rastreamento, parada));
+        return client.getDirections(DEFAULT_PROFILE, mapper.toDirectionsRequestFromRastreamentoAndParada(rastreamento, parada));
     }
 
 }
