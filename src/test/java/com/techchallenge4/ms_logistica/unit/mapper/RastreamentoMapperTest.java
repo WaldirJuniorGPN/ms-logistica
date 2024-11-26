@@ -2,7 +2,7 @@ package com.techchallenge4.ms_logistica.unit.mapper;
 
 import com.techchallenge4.ms_logistica.mapper.RastreamentoMapper;
 import com.techchallenge4.ms_logistica.utils.MapperUtils;
-import com.techchallenge4.ms_logistica.utils.RastreamentoUtils;
+import com.techchallenge4.ms_logistica.utils.RastreamentoUtil;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +19,7 @@ class RastreamentoMapperTest {
         @Test
         void shouldReturnSuccessfully() {
             // Given
-            var request = RastreamentoUtils.buildRastreamentoRequest();
+            var request = RastreamentoUtil.buildRastreamentoRequest();
 
             // When
             var rastreamento = rastreamentoMapper.toEntity(request);
@@ -32,7 +32,7 @@ class RastreamentoMapperTest {
         @Test
         void shouldMapUltimaLatitude() {
             // Given
-            var request = RastreamentoUtils.buildRastreamentoRequest()
+            var request = RastreamentoUtil.buildRastreamentoRequest()
                     .withLatitude(null);
 
             // When
@@ -44,7 +44,7 @@ class RastreamentoMapperTest {
         @Test
         void shouldMapUltimaLongitude() {
             // Given
-            var request = RastreamentoUtils.buildRastreamentoRequest()
+            var request = RastreamentoUtil.buildRastreamentoRequest()
                     .withLongitude(null);
 
             // When
@@ -60,8 +60,8 @@ class RastreamentoMapperTest {
         @Test
         void shouldReturnSuccessfully() {
             // Given
-            var rastreamento = RastreamentoUtils.buildRastreamento();
-            var request = RastreamentoUtils.buildRastreamentoRequest()
+            var rastreamento = RastreamentoUtil.buildRastreamento();
+            var request = RastreamentoUtil.buildRastreamentoRequest()
                     .withLatitude(2.0)
                     .withLongitude(2.0);
 
@@ -76,9 +76,9 @@ class RastreamentoMapperTest {
         void shouldIgnoreRota() {
             // Given
             var initialRotaId = 1L;
-            var rastreamento = RastreamentoUtils.buildRastreamento();
+            var rastreamento = RastreamentoUtil.buildRastreamento();
             rastreamento.setId(initialRotaId);
-            var request = RastreamentoUtils.buildRastreamentoRequest()
+            var request = RastreamentoUtil.buildRastreamentoRequest()
                     .withRotaId(rastreamento.getId() + 1);
 
             // When
@@ -94,7 +94,7 @@ class RastreamentoMapperTest {
         @Test
         void shouldReturnSuccessfully() {
             // Given
-            var rastreamento = RastreamentoUtils.buildRastreamento();
+            var rastreamento = RastreamentoUtil.buildRastreamento();
 
             // When
             var response = rastreamentoMapper.toResponse(rastreamento);
@@ -108,7 +108,7 @@ class RastreamentoMapperTest {
         @Test
         void shouldMapRotaId() {
             // Given
-            var rastreamento = RastreamentoUtils.buildRastreamento();
+            var rastreamento = RastreamentoUtil.buildRastreamento();
 
             // When
             var response = rastreamentoMapper.toResponse(rastreamento);

@@ -33,7 +33,7 @@ public class OptimizeRequest {
     @AllArgsConstructor
     public static class Job {
         private String id;
-        private List<String> location;
+        private List<Double> location;
         private Integer service;
         private Integer amount;
     }

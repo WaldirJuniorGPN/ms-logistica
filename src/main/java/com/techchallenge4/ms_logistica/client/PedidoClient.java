@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @FeignClient(value = "pedido-service", url = "${services.pedido-service.url}")
-public interface PedidoServiceClient {
+public interface PedidoClient {
 
     @GetMapping("/pedidos")
     List<PedidoResponse> getPedidosByEstadoEStatus(@RequestParam EstadoEnum estado, @RequestParam PedidoStatusEnum status);

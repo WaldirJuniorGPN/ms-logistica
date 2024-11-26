@@ -1,11 +1,12 @@
 package com.techchallenge4.ms_logistica.service.v1.impl;
 
-import com.techchallenge4.ms_logistica.client.PedidoServiceClient;
+import com.techchallenge4.ms_logistica.client.PedidoClient;
 import com.techchallenge4.ms_logistica.domain.Rota;
 import com.techchallenge4.ms_logistica.enums.EstadoEnum;
 import com.techchallenge4.ms_logistica.enums.PedidoStatusEnum;
 import com.techchallenge4.ms_logistica.enums.RotaStatusEnum;
-import com.techchallenge4.ms_logistica.exception.ProcessamentoEntregasException;
+import com.techchallenge4.ms_logistica.exception.FinalizarEntregasException;
+import com.techchallenge4.ms_logistica.exception.ProcessarEntregasException;
 import com.techchallenge4.ms_logistica.service.v1.EntregadorService;
 import com.techchallenge4.ms_logistica.service.v1.EntregasService;
 import com.techchallenge4.ms_logistica.service.v1.OrigemService;
@@ -20,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class EntregasServiceImpl implements EntregasService {
 
-    private final PedidoServiceClient pedidoServiceClient;
+    private final PedidoClient pedidoClient;
     private final RotaService rotaService;
     private final EntregadorService entregadorService;
     private final OrigemService origemService;
@@ -31,7 +32,7 @@ public class EntregasServiceImpl implements EntregasService {
         try {
             log.info("Iniciando processamento de pedidos para o estado: {}", estado);
 
-            var pedidosPendentes = pedidoServiceClient.getPedidosByEstadoEStatus(estado, PedidoStatusEnum.PENDENTE);
+            var pedidosPendentes = pedidoClient.getPedidosByEstadoEStatus(estado, PedidoStatusEnum.PENDENTE);
 
             if (pedidosPendentes.isEmpty()) {
                 log.info("Nenhuma entrega pendente para o estado: {}", estado);
@@ -48,7 +49,7 @@ public class EntregasServiceImpl implements EntregasService {
 
         } catch (Exception e) {
             log.error("Erro ao processar pedidos para o estado: {}", estado, e);
-            throw new ProcessamentoEntregasException(e);
+            throw new ProcessarEntregasException(e);
         }
     }
 
@@ -64,7 +65,7 @@ public class EntregasServiceImpl implements EntregasService {
 
         } catch (Exception e) {
             log.error("Erro ao liberar entregadores", e);
-            throw new ProcessamentoEntregasException(e);
+            throw new FinalizarEntregasException(e);
         }
     }
 

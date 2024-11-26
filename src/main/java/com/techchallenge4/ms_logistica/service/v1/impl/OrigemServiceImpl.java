@@ -33,7 +33,7 @@ public class OrigemServiceImpl implements OrigemService {
     @Override
     public Origem findByRegiao(RegiaoEnum regiao) {
         return repository.findByRegiao(regiao)
-                .orElseThrow(() -> new RuntimeException("Nenhnuma Origem cadastrada encontrada para a regiao: " + regiao));
+                .orElseThrow(() -> new ResourceNotFoundException("Nenhnuma Origem cadastrada encontrada para a regiao: " + regiao));
     }
 
     @Override

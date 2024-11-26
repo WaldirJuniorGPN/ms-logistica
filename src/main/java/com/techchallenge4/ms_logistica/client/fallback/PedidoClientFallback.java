@@ -1,6 +1,6 @@
 package com.techchallenge4.ms_logistica.client.fallback;
 
-import com.techchallenge4.ms_logistica.client.PedidoServiceClient;
+import com.techchallenge4.ms_logistica.client.PedidoClient;
 import com.techchallenge4.ms_logistica.client.response.PedidoResponse;
 import com.techchallenge4.ms_logistica.enums.EstadoEnum;
 import com.techchallenge4.ms_logistica.enums.PedidoStatusEnum;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @Slf4j
 @Component
-public class PedidoServiceClientFallback implements PedidoServiceClient {
+public class PedidoClientFallback implements PedidoClient {
 
     @Override
     public List<PedidoResponse> getPedidosByEstadoEStatus(EstadoEnum estado, PedidoStatusEnum status) {

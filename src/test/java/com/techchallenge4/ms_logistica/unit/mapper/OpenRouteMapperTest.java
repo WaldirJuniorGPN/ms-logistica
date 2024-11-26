@@ -6,7 +6,7 @@ import com.techchallenge4.ms_logistica.utils.MapperUtils;
 import com.techchallenge4.ms_logistica.utils.OrigemUtils;
 import com.techchallenge4.ms_logistica.utils.ParadaUtils;
 import com.techchallenge4.ms_logistica.utils.PedidoUtils;
-import com.techchallenge4.ms_logistica.utils.RastreamentoUtils;
+import com.techchallenge4.ms_logistica.utils.RastreamentoUtil;
 import com.techchallenge4.ms_logistica.utils.RotaUtils;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -97,7 +97,7 @@ class OpenRouteMapperTest {
         @Test
         void shouldReturnSuccessfully() {
             // Given
-            var rastreamento = RastreamentoUtils.buildRastreamento();
+            var rastreamento = RastreamentoUtil.buildRastreamento();
             var parada = ParadaUtils.buildParada();
 
             // When
@@ -110,7 +110,7 @@ class OpenRouteMapperTest {
         @Test
         void shouldMapCoordinates() {
             // Given
-            var rastreamento = RastreamentoUtils.buildRastreamento();
+            var rastreamento = RastreamentoUtil.buildRastreamento();
             var parada = ParadaUtils.buildParada();
 
             // When

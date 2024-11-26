@@ -12,8 +12,8 @@ public record PedidoResponse(
         Long clienteId,
         Long produtoId,
         Integer quantidade,
-        String latitude,
-        String longitude,
+        Double latitude,
+        Double longitude,
         LocalDateTime dataHoraCriacao,
         PedidoStatusEnum status,
         EstadoEnum estado

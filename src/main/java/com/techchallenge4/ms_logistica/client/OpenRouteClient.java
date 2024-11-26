@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @FeignClient(value = "open-route-service", url = "${services.open-route-service.url}", configuration = OpenRouteServiceClientConfig.class)
-public interface OpenRouteServiceClient {
+public interface OpenRouteClient {
 
     @PostMapping(value = "/optimization")
     OptimizeResponse getOptimizeRoute(@RequestBody OptimizeRequest request);

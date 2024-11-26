@@ -7,8 +7,8 @@ import com.techchallenge4.ms_logistica.enums.EstadoEnum;
 import com.techchallenge4.ms_logistica.enums.RegiaoEnum;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 @NoArgsConstructor
 public class OrigemUtils {
@@ -37,11 +37,9 @@ public class OrigemUtils {
     }
 
     public static List<Origem> buildOrigemList(int numberOfMocks) {
-        var origens = new ArrayList<Origem>();
-        for (int i = 0; i < numberOfMocks; i++) {
-            origens.add(buildOrigem((long) i));
-        }
-        return origens;
+        return IntStream.range(0, numberOfMocks)
+                .mapToObj(i -> buildOrigem((long) i))
+                .toList();
     }
 
     public static Origem buildOrigem(Long id) {

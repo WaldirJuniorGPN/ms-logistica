@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @NoArgsConstructor
@@ -16,7 +15,11 @@ public class PedidoUtils {
     public static List<PedidoResponse> buildPedidoResponseList(int numberOfMocks) {
         return IntStream.range(0, numberOfMocks)
                 .mapToObj(i -> buildPedidoResponse((long) i))
-                .collect(Collectors.toList());
+                .toList();
+    }
+
+    public static PedidoResponse buildPedidoResponse() {
+        return buildPedidoResponse(1L);
     }
 
     public static PedidoResponse buildPedidoResponse(Long id) {
@@ -25,8 +28,8 @@ public class PedidoUtils {
                 .clienteId(id + 100)
                 .produtoId(id + 200)
                 .quantidade(1)
-                .latitude("10.0" + id)
-                .longitude("20.0" + id)
+                .latitude(10.0 + id)
+                .longitude(20.0 + id)
                 .dataHoraCriacao(LocalDateTime.now())
                 .status(PedidoStatusEnum.PENDENTE)
                 .estado(EstadoEnum.SP)

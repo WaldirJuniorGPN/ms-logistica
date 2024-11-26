@@ -5,10 +5,8 @@ import com.techchallenge4.ms_logistica.api.v1.response.RastreamentoResponse;
 import com.techchallenge4.ms_logistica.domain.Rastreamento;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @NoArgsConstructor
-public class RastreamentoUtils {
+public class RastreamentoUtil {
 
     public static Rastreamento buildRastreamento() {
         return Rastreamento.builder()
@@ -35,4 +33,5 @@ public class RastreamentoUtils {
                 .ultimaLongitude(1.0)
                 .build();
     }
+
 }

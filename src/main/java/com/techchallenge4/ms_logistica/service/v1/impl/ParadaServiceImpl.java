@@ -2,7 +2,7 @@ package com.techchallenge4.ms_logistica.service.v1.impl;
 
 import com.techchallenge4.ms_logistica.api.v1.request.ParadaStatusRequest;
 import com.techchallenge4.ms_logistica.api.v1.response.ParadaResponse;
-import com.techchallenge4.ms_logistica.client.PedidoServiceClient;
+import com.techchallenge4.ms_logistica.client.PedidoClient;
 import com.techchallenge4.ms_logistica.domain.Parada;
 import com.techchallenge4.ms_logistica.exception.ResourceNotFoundException;
 import com.techchallenge4.ms_logistica.mapper.ParadaMapper;
@@ -17,7 +17,7 @@ public class ParadaServiceImpl implements ParadaService {
 
     private final ParadaRepository repository;
     private final ParadaMapper mapper;
-    private final PedidoServiceClient pedidoServiceClient;
+    private final PedidoClient pedidoClient;
 
     @Override
     public ParadaResponse patchStatus(Long id, ParadaStatusRequest request) {
@@ -28,7 +28,7 @@ public class ParadaServiceImpl implements ParadaService {
     }
 
     private ParadaResponse updateAndSaveStatus(ParadaStatusRequest request, Parada parada) {
-        pedidoServiceClient.updatePedidoStatus(parada.getPedidoId(), request.status());
+        pedidoClient.updatePedidoStatus(parada.getPedidoId(), request.status());
         mapper.updateStatus(parada, request);
         return mapper.toResponse(repository.save(parada));
     }

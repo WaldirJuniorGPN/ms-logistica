@@ -1,22 +1,31 @@
 package com.techchallenge4.ms_logistica.utils;
 
+import com.techchallenge4.ms_logistica.api.v1.request.ParadaStatusRequest;
 import com.techchallenge4.ms_logistica.api.v1.response.ParadaResponse;
 import com.techchallenge4.ms_logistica.domain.Parada;
 import com.techchallenge4.ms_logistica.enums.PedidoStatusEnum;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 @NoArgsConstructor
 public class ParadaUtils {
 
+    public static ParadaStatusRequest buildParadaStatusRequest() {
+        return ParadaStatusRequest.builder()
+                .status(PedidoStatusEnum.PENDENTE)
+                .build();
+    }
+
     public static List<ParadaResponse> buildParadaResponseList(int numberOfMocks) {
-        var paradas = new ArrayList<ParadaResponse>();
-        for (int i = 0; i < numberOfMocks; i++) {
-            paradas.add(buildParadaResponse((long) i));
-        }
-        return paradas;
+        return IntStream.range(0, numberOfMocks)
+                .mapToObj(i -> buildParadaResponse((long) i))
+                .toList();
+    }
+
+    public static ParadaResponse buildParadaResponse() {
+        return buildParadaResponse(1L);
     }
 
     public static ParadaResponse buildParadaResponse(Long id) {
@@ -33,11 +42,9 @@ public class ParadaUtils {
     }
 
     public static List<Parada> buildParadaList(int numberOfMocks) {
-        var paradas = new ArrayList<Parada>();
-        for (int i = 0; i < numberOfMocks; i++) {
-            paradas.add(buildParada((long) i));
-        }
-        return paradas;
+        return IntStream.range(0, numberOfMocks)
+                .mapToObj(i -> buildParada((long) i))
+                .toList();
     }
 
     public static Parada buildParada() {

@@ -6,8 +6,8 @@ import com.techchallenge4.ms_logistica.domain.Entregador;
 import com.techchallenge4.ms_logistica.enums.EstadoEnum;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 @NoArgsConstructor
 public class EntregadorUtils {
@@ -36,11 +36,9 @@ public class EntregadorUtils {
     }
 
     public static List<Entregador> buildEntregadorList(int numberOfMocks) {
-        var list = new ArrayList<Entregador>();
-        for (int i = 0; i < numberOfMocks; i++) {
-            list.add(buildEntregador((long) i));
-        }
-        return list;
+        return IntStream.range(0, numberOfMocks)
+                .mapToObj(i -> buildEntregador((long) i))
+                .toList();
     }
 
     public static Entregador buildEntregador(Long id) {

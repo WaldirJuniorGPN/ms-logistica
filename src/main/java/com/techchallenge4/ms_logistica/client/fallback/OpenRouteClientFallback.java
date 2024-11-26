@@ -1,6 +1,6 @@
 package com.techchallenge4.ms_logistica.client.fallback;
 
-import com.techchallenge4.ms_logistica.client.OpenRouteServiceClient;
+import com.techchallenge4.ms_logistica.client.OpenRouteClient;
 import com.techchallenge4.ms_logistica.client.request.DirectionsRequest;
 import com.techchallenge4.ms_logistica.client.request.OptimizeRequest;
 import com.techchallenge4.ms_logistica.client.response.DirectionsResponse;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class OpenRouteServiceFallback implements OpenRouteServiceClient {
+public class OpenRouteClientFallback implements OpenRouteClient {
 
     @Override
     public OptimizeResponse getOptimizeRoute(OptimizeRequest request) {

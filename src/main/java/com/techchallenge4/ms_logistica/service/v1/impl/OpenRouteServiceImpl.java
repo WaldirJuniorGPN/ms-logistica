@@ -1,6 +1,6 @@
 package com.techchallenge4.ms_logistica.service.v1.impl;
 
-import com.techchallenge4.ms_logistica.client.OpenRouteServiceClient;
+import com.techchallenge4.ms_logistica.client.OpenRouteClient;
 import com.techchallenge4.ms_logistica.client.response.DirectionsResponse;
 import com.techchallenge4.ms_logistica.client.response.OptimizeResponse;
 import com.techchallenge4.ms_logistica.client.response.PedidoResponse;
@@ -23,7 +23,7 @@ public class OpenRouteServiceImpl implements OpenRouteService {
     private static final String DEFAULT_PROFILE = "driving-car";
 
     private final OpenRouteMapper mapper;
-    private final OpenRouteServiceClient client;
+    private final OpenRouteClient client;
 
     @Override
     public OptimizeResponse getOptimizeRoute(List<PedidoResponse> pedidos, Entregador entregador, Origem origem) {
