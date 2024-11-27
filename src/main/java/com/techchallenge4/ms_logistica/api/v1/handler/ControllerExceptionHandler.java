@@ -1,5 +1,6 @@
 package com.techchallenge4.ms_logistica.api.v1.handler;
 
+import com.techchallenge4.ms_logistica.exception.FeignClientException;
 import com.techchallenge4.ms_logistica.exception.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,11 @@ import java.time.format.DateTimeFormatter;
 @RequiredArgsConstructor
 public class ControllerExceptionHandler {
 
+    @ExceptionHandler(FeignClientException.class)
+    public ResponseEntity<ErrorResponse> handleFeignClientException(HttpServletRequest request, FeignClientException ex) {
+        return handleException(request, HttpStatus.valueOf(ex.getStatus()), ex);
+    }
+
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleResourceNotFoundException(HttpServletRequest request, ResourceNotFoundException ex) {
         return handleException(request, HttpStatus.NOT_FOUND, ex);
@@ -40,23 +46,18 @@ public class ControllerExceptionHandler {
     }
 
     private ResponseEntity<ErrorResponse> handleException(HttpServletRequest request, HttpStatus status, Exception ex) {
-        return handleException(request, status, null, ex);
-    }
-
-    private ResponseEntity<ErrorResponse> handleException(HttpServletRequest request, HttpStatus status, String errorCode, Exception ex) {
-        var errorResponse = buildErrorResponse(status, status.getReasonPhrase(), ex.getMessage(), request.getRequestURI(), errorCode);
+        var errorResponse = buildErrorResponse(status, status.getReasonPhrase(), ex.getMessage(), request.getRequestURI());
         log.error(errorResponse.toString(), ex);
         return new ResponseEntity<>(errorResponse, status);
     }
 
-    private ErrorResponse buildErrorResponse(HttpStatus status, String error, String message, String path, String errorCode) {
+    private ErrorResponse buildErrorResponse(HttpStatus status, String error, String message, String path) {
         return ErrorResponse.builder()
                 .timestamp(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME))
                 .status(status.value())
                 .error(error)
                 .message(message)
                 .path(path)
-                .errorCode(errorCode)
                 .build();
     }
 }

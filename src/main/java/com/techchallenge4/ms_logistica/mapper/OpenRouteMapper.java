@@ -14,7 +14,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Mapper(config = MappingConfig.class)
 public interface OpenRouteMapper {
@@ -50,9 +52,10 @@ public interface OpenRouteMapper {
 
     @Named("mapCoordinates")
     default List<List<Double>> mapCoordinates(Rota rota) {
-        return rota.getParadas().stream()
-                .map(parada -> List.of(parada.getLongitude(), parada.getLatitude()))
-                .toList();
+        return Stream.concat(
+                Stream.of(List.of(rota.getOrigem().getLongitude(), rota.getOrigem().getLatitude())),
+                rota.getParadas().stream().map(parada -> List.of(parada.getLongitude(), parada.getLatitude()))
+        ).toList();
     }
 
     @Mapping(target = "coordinates", expression = "java(mapCoordinates(rastreamento, parada))")

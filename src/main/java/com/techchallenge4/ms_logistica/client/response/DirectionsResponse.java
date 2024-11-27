@@ -1,5 +1,6 @@
 package com.techchallenge4.ms_logistica.client.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,28 +21,50 @@ public class DirectionsResponse {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Route {
-        private double distance;
-        private double duration;
+
+        private Summary summary;
         private List<Segment> segments;
-        private Geometry geometry;
+        private List<Double> bbox;
+        private String geometry;
+        @JsonProperty("way_points")
+        private List<Integer> wayPoints;
 
         @Data
         @Builder
         @NoArgsConstructor
         @AllArgsConstructor
-        public static class Segment {
-            private double distance;
-            private double duration;
-            private String instruction;
+        public static class Summary {
+
+            private Double distance;
+            private Double duration;
+
         }
 
         @Data
         @Builder
         @NoArgsConstructor
         @AllArgsConstructor
-        public static class Geometry {
-            private String type;
-            private List<List<Double>> coordinates;
+        public static class Segment {
+
+            private Double distance;
+            private Double duration;
+            private List<Step> steps;
+
+            @Data
+            @Builder
+            @NoArgsConstructor
+            @AllArgsConstructor
+            public static class Step {
+
+                private Double distance;
+                private Double duration;
+                private Integer type;
+                private String instruction;
+                private String name;
+                @JsonProperty("way_points")
+                private List<Integer> wayPoints;
+
+            }
         }
     }
 }

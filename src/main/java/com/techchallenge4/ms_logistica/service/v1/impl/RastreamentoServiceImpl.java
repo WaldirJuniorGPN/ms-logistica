@@ -58,9 +58,10 @@ public class RastreamentoServiceImpl implements RastreamentoService {
     }
 
     private Rastreamento getOrCreateRastreamento(RastreamentoRequest request) {
-        return repository.findByRota(rotaService.findEntityById(request.rotaId()))
+        var rota = rotaService.findEntityById(request.rotaId());
+        return repository.findByRota(rota)
                 .map(entity -> updateUltimaPosicao(entity, request))
-                .orElse(createRastreamento(request));
+                .orElse(createRastreamento(request, rota));
     }
 
     private Rastreamento updateUltimaPosicao(Rastreamento entity, RastreamentoRequest request) {
@@ -68,8 +69,8 @@ public class RastreamentoServiceImpl implements RastreamentoService {
         return entity;
     }
 
-    private Rastreamento createRastreamento(RastreamentoRequest request) {
-        return mapper.toEntity(request);
+    private Rastreamento createRastreamento(RastreamentoRequest request, Rota rota) {
+        return mapper.toEntity(request, rota);
     }
 
 }

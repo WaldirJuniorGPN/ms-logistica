@@ -76,7 +76,7 @@ class OpenRouteMapperTest {
 
             // Then
             assertNotNull(request);
-            assertEquals(rota.getParadas().size(), request.getCoordinates().size());
+            assertEquals(rota.getParadas().size() + 1, request.getCoordinates().size());
         }
         @Test
         void shouldMapCoordinates() {
@@ -88,7 +88,7 @@ class OpenRouteMapperTest {
 
             // Then
             assertNotNull(coordinates);
-            assertEquals(rota.getParadas().size(), coordinates.size());
+            assertEquals(rota.getParadas().size() + 1, coordinates.size());
         }
     }
 

@@ -13,7 +13,7 @@ public class OpenRouteServiceClientConfig {
 
     @Bean
     public RequestInterceptor requestInterceptor() {
-        return template -> template.query("api-key", apiKey);
+        return template -> template.header("Authorization", apiKey);
     }
 
 }

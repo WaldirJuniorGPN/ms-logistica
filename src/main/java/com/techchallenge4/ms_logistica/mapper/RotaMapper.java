@@ -35,7 +35,7 @@ public interface RotaMapper {
     default List<Parada> mapParadas(List<OptimizeResponse.Route.Step> steps) {
         return steps.stream()
                 .filter(step -> JOB.equalsIgnoreCase(step.getType()))
-                .map(step -> createParadaFromStep(step, steps.indexOf(step) + 1))
+                .map(step -> createParadaFromStep(step, step.getId()))
                 .toList();
     }
 

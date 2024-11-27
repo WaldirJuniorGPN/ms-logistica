@@ -3,6 +3,7 @@ package com.techchallenge4.ms_logistica.unit.mapper;
 import com.techchallenge4.ms_logistica.mapper.RastreamentoMapper;
 import com.techchallenge4.ms_logistica.utils.MapperUtils;
 import com.techchallenge4.ms_logistica.utils.RastreamentoUtil;
+import com.techchallenge4.ms_logistica.utils.RotaUtils;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -19,10 +20,11 @@ class RastreamentoMapperTest {
         @Test
         void shouldReturnSuccessfully() {
             // Given
+            var rota = RotaUtils.buildRota();
             var request = RastreamentoUtil.buildRastreamentoRequest();
 
             // When
-            var rastreamento = rastreamentoMapper.toEntity(request);
+            var rastreamento = rastreamentoMapper.toEntity(request, rota);
 
             // Then
             assertNotNull(rastreamento);
@@ -32,11 +34,11 @@ class RastreamentoMapperTest {
         @Test
         void shouldMapUltimaLatitude() {
             // Given
-            var request = RastreamentoUtil.buildRastreamentoRequest()
-                    .withLatitude(null);
+            var rota = RotaUtils.buildRota();
+            var request = RastreamentoUtil.buildRastreamentoRequest().withLatitude(null);
 
             // When
-            var rastreamento = rastreamentoMapper.toEntity(request);
+            var rastreamento = rastreamentoMapper.toEntity(request, rota);
 
             // Then
             assertNull(rastreamento.getUltimaLatitude());
@@ -44,11 +46,11 @@ class RastreamentoMapperTest {
         @Test
         void shouldMapUltimaLongitude() {
             // Given
-            var request = RastreamentoUtil.buildRastreamentoRequest()
-                    .withLongitude(null);
+            var rota = RotaUtils.buildRota();
+            var request = RastreamentoUtil.buildRastreamentoRequest().withLongitude(null);
 
             // When
-            var rastreamento = rastreamentoMapper.toEntity(request);
+            var rastreamento = rastreamentoMapper.toEntity(request, rota);
 
             // Then
             assertNull(rastreamento.getUltimaLongitude());

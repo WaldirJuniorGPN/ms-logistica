@@ -12,16 +12,16 @@ public class RastreamentoUtil {
         return Rastreamento.builder()
                 .id(1L)
                 .rota(RotaUtils.buildRota())
-                .ultimaLatitude(1.0)
-                .ultimaLongitude(1.0)
+                .ultimaLatitude(8.681495)
+                .ultimaLongitude(49.41461)
                 .build();
     }
 
     public static RastreamentoRequest buildRastreamentoRequest() {
         return RastreamentoRequest.builder()
                 .rotaId(1L)
-                .latitude(1.0)
-                .longitude(1.0)
+                .latitude(8.681495)
+                .longitude(49.41461)
                 .build();
     }
 
@@ -29,16 +29,16 @@ public class RastreamentoUtil {
         return RastreamentoResponse.builder()
                 .id(1L)
                 .rotaId(1L)
-                .ultimaLatitude(1.0)
-                .ultimaLongitude(1.0)
+                .ultimaLatitude(8.681495)
+                .ultimaLongitude(49.41461)
                 .build();
     }
 
     public static Rastreamento buildRastreamentoSemId() {
         return Rastreamento.builder()
                 .rota(RotaUtils.buildRotaSemId())
-                .ultimaLatitude(1.0)
-                .ultimaLongitude(1.0)
+                .ultimaLatitude(8.681495)
+                .ultimaLongitude(49.41461)
                 .build();
     }
 }

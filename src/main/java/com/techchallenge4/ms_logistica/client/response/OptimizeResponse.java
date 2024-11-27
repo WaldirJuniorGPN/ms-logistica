@@ -1,5 +1,6 @@
 package com.techchallenge4.ms_logistica.client.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Data;
 
@@ -24,12 +25,14 @@ public class OptimizeResponse {
         private Integer setup;
         private Integer service;
         private Integer duration;
-        private Integer waiting_time;
+        @JsonProperty("waiting_time")
+        private Integer waitingTime;
         private Integer priority;
-        private List<Object> violations;
-        private ComputingTimes computing_times;
+        @JsonProperty("computing_times")
+        private ComputingTimes computingTimes;
 
         @Data
+        @Builder
         public static class ComputingTimes {
             private Integer loading;
             private Integer solving;
@@ -48,10 +51,10 @@ public class OptimizeResponse {
         private Integer setup;
         private Integer service;
         private Integer duration;
-        private Integer waiting_time;
+        @JsonProperty("waiting_time")
+        private Integer waitingTime;
         private Integer priority;
         private List<Step> steps;
-        private List<Object> violations;
 
         @Data
         @Builder
@@ -61,12 +64,12 @@ public class OptimizeResponse {
             private Integer id;
             private Integer setup;
             private Integer service;
-            private Integer waiting_time;
+            @JsonProperty("waiting_time")
+            private Integer waitingTime;
             private Integer job;
             private List<Integer> load;
             private Integer arrival;
             private Integer duration;
-            private List<Object> violations;
         }
     }
 }
