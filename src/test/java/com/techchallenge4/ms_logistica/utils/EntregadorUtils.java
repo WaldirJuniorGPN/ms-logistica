@@ -67,4 +67,16 @@ public class EntregadorUtils {
                 .build();
     }
 
+    public static Entregador buildEntregadorSemId() {
+        return Entregador.builder()
+                .nome("nome")
+                .cpf("cpf")
+                .contato("contato")
+                .capacidade(100)
+                .cep("02435-060")
+                .estado(EstadoEnum.SP)
+                .disponivel(true)
+                .build();
+    }
+
 }

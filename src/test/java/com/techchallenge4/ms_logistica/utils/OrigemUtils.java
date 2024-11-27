@@ -67,4 +67,17 @@ public class OrigemUtils {
                 .regiao(RegiaoEnum.SUDESTE)
                 .build();
     }
+
+    public static Origem buildOrigemSemId() {
+        return Origem.builder()
+                .nome("nome")
+                .endereco("endereco")
+                .latitude(1.0)
+                .longitude(1.0)
+                .cep("02435-060")
+                .estado(EstadoEnum.SP)
+                .regiao(RegiaoEnum.SUDESTE)
+                .build();
+    }
+
 }

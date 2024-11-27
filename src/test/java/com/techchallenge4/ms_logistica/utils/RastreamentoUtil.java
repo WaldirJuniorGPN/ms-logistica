@@ -34,4 +34,11 @@ public class RastreamentoUtil {
                 .build();
     }
 
+    public static Rastreamento buildRastreamentoSemId() {
+        return Rastreamento.builder()
+                .rota(RotaUtils.buildRotaSemId())
+                .ultimaLatitude(1.0)
+                .ultimaLongitude(1.0)
+                .build();
+    }
 }

@@ -64,4 +64,15 @@ public class ParadaUtils {
                 .build();
     }
 
+    public static Parada buildParadaSemId() {
+        return Parada.builder()
+                .pedidoId(1L)
+                .sequencia(1L)
+                .latitude(1.0)
+                .longitude(1.0)
+                .contato("contato")
+                .status(PedidoStatusEnum.PENDENTE)
+                .observacao("observacao")
+                .build();
+    }
 }

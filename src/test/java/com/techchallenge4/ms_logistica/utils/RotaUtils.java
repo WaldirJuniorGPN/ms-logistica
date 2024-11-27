@@ -41,4 +41,12 @@ public class RotaUtils {
                 .build();
     }
 
+    public static Rota buildRotaSemId() {
+        return Rota.builder()
+                .status(RotaStatusEnum.EM_ANDAMENTO)
+                .origem(OrigemUtils.buildOrigem())
+                .entregador(EntregadorUtils.buildEntregador())
+                .paradas(ParadaUtils.buildParadaList(3))
+                .build();
+    }
 }
