@@ -5,11 +5,11 @@ import com.techchallenge4.ms_logistica.integration.AbstractContainerIT;
 import com.techchallenge4.ms_logistica.repository.EntregadorRepository;
 import com.techchallenge4.ms_logistica.utils.EntregadorUtils;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,7 +17,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @Testcontainers
 @SpringBootTest
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 class EntregadorControllerIT extends AbstractContainerIT {
 
     @Autowired
@@ -25,6 +24,11 @@ class EntregadorControllerIT extends AbstractContainerIT {
 
     @Autowired
     private EntregadorController controller;
+
+    @BeforeEach
+    void setUp() {
+        repository.deleteAll();
+    }
 
     @AfterEach
     void tearDown() {
@@ -53,8 +57,7 @@ class EntregadorControllerIT extends AbstractContainerIT {
         @Test
         void shouldExecuteSuccessfully() {
             // Given
-            var entregador = EntregadorUtils.buildEntregadorSemId();
-            repository.save(entregador);
+            repository.save(EntregadorUtils.buildEntregadorSemId());
 
             // When
             var response = controller.getAllEntregadores();
@@ -71,8 +74,7 @@ class EntregadorControllerIT extends AbstractContainerIT {
         @Test
         void shouldExecuteSuccessfully() {
             // Given
-            var entregador = EntregadorUtils.buildEntregador();
-            repository.save(entregador);
+            var entregador = repository.save(EntregadorUtils.buildEntregadorSemId());
 
             // When
             var response = controller.getEntregadorById(entregador.getId());
@@ -89,9 +91,7 @@ class EntregadorControllerIT extends AbstractContainerIT {
         @Test
         void shouldExecuteSuccessfully() {
             // Given
-            var entregador = EntregadorUtils.buildEntregador();
-            repository.save(entregador);
-
+            var entregador = repository.save(EntregadorUtils.buildEntregadorSemId());
             var request = EntregadorUtils.buildEntregadorRequest();
 
             // When
@@ -109,8 +109,7 @@ class EntregadorControllerIT extends AbstractContainerIT {
         @Test
         void shouldExecuteSuccessfully() {
             // Given
-            var entregador = EntregadorUtils.buildEntregador();
-            repository.save(entregador);
+            var entregador = repository.save(EntregadorUtils.buildEntregador());
 
             // When
             var response = controller.deleteEntregador(entregador.getId());

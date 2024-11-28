@@ -11,6 +11,7 @@ import com.techchallenge4.ms_logistica.utils.EntregadorUtils;
 import com.techchallenge4.ms_logistica.utils.OrigemUtils;
 import com.techchallenge4.ms_logistica.utils.ParadaUtils;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +39,17 @@ class RotaControllerIT extends AbstractContainerIT {
     @Autowired
     private RotaController controller;
 
+    @BeforeEach
+    void setUp() {
+        deleteAll();
+    }
+
     @AfterEach
     void tearDown() {
+        deleteAll();
+    }
+
+    private void deleteAll() {
         rotaRepository.deleteAll();
         origemRepository.deleteAll();
         entregadorRepository.deleteAll();

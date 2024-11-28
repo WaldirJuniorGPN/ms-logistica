@@ -10,6 +10,7 @@ import com.techchallenge4.ms_logistica.utils.EntregadorUtils;
 import com.techchallenge4.ms_logistica.utils.OrigemUtils;
 import com.techchallenge4.ms_logistica.utils.ParadaUtils;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,11 @@ class RotaRepositoryIT extends AbstractContainerIT {
 
     @Autowired
     private RotaRepository repository;
+
+    @BeforeEach
+    void setUp() {
+        repository.deleteAll();
+    }
 
     @AfterEach
     void tearDown() {

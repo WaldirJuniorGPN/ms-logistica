@@ -4,6 +4,7 @@ import com.techchallenge4.ms_logistica.integration.AbstractContainerIT;
 import com.techchallenge4.ms_logistica.repository.ParadaRepository;
 import com.techchallenge4.ms_logistica.utils.ParadaUtils;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,11 @@ class ParadaRepositoryIT extends AbstractContainerIT {
 
     @Autowired
     private ParadaRepository repository;
+
+    @BeforeEach
+    void setUp() {
+        repository.deleteAll();
+    }
 
     @AfterEach
     void tearDown() {

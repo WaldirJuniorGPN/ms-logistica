@@ -6,6 +6,7 @@ import com.techchallenge4.ms_logistica.repository.RastreamentoRepository;
 import com.techchallenge4.ms_logistica.repository.RotaRepository;
 import com.techchallenge4.ms_logistica.utils.RastreamentoUtil;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,11 @@ class RastreamentoRepositoryIT extends AbstractContainerIT {
 
     @Autowired
     private RastreamentoRepository repository;
+
+    @BeforeEach
+    void setUp() {
+        repository.deleteAll();
+    }
 
     @AfterEach
     void tearDown() {

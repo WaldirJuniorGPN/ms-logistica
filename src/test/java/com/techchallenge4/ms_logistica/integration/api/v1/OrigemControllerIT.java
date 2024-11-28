@@ -3,14 +3,13 @@ package com.techchallenge4.ms_logistica.integration.api.v1;
 import com.techchallenge4.ms_logistica.api.v1.OrigemController;
 import com.techchallenge4.ms_logistica.integration.AbstractContainerIT;
 import com.techchallenge4.ms_logistica.repository.OrigemRepository;
-import com.techchallenge4.ms_logistica.repository.RotaRepository;
 import com.techchallenge4.ms_logistica.utils.OrigemUtils;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,17 +17,18 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @Testcontainers
 @SpringBootTest
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 class OrigemControllerIT extends AbstractContainerIT {
-
-    @Autowired
-    private RotaRepository rotaRepository;
 
     @Autowired
     private OrigemRepository repository;
 
     @Autowired
     private OrigemController controller;
+
+    @BeforeEach
+    void setUp() {
+        repository.deleteAll();
+    }
 
     @AfterEach
     void tearDown() {

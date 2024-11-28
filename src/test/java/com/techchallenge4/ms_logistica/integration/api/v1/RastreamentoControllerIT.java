@@ -44,7 +44,16 @@ class RastreamentoControllerIT extends AbstractContainerIT {
     private RastreamentoController controller;
 
     @AfterEach
+    void setUp() {
+        deleteAll();
+    }
+
+    @AfterEach
     void tearDown() {
+        deleteAll();
+    }
+
+    private void deleteAll() {
         repository.deleteAll();
         rotaRepository.deleteAll();
         origemRepository.deleteAll();
