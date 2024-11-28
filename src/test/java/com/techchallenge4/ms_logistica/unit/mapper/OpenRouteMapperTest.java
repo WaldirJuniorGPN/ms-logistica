@@ -13,6 +13,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class OpenRouteMapperTest {
 
@@ -35,6 +37,37 @@ class OpenRouteMapperTest {
             assertEquals(1, request.getVehicles().size());
             assertEquals(pedidoResponseList.size(), request.getJobs().size());
         }
+
+        @Test
+        void shouldReturnNullWhenPedidoResponseListIsNull() {
+            // Given
+            var entregador = EntregadorUtils.buildEntregador();
+            var origem = OrigemUtils.buildOrigem();
+
+            // When & Then
+            assertThrows(NullPointerException.class, () -> mapper.toOptimizeRequest(null, entregador, origem));
+        }
+
+        @Test
+        void shouldReturnNullWhenEntregadorIsNull() {
+            // Given
+            var pedidoResponseList = PedidoUtils.buildPedidoResponseList(3);
+            var origem = OrigemUtils.buildOrigem();
+
+            // When & Then
+            assertThrows(NullPointerException.class, () -> mapper.toOptimizeRequest(pedidoResponseList, null, origem));
+        }
+
+        @Test
+        void shouldReturnNullWhenOrigemIsNull() {
+            // Given
+            var pedidoResponseList = PedidoUtils.buildPedidoResponseList(3);
+            var entregador = EntregadorUtils.buildEntregador();
+
+            // When & Then
+            assertThrows(NullPointerException.class, () -> mapper.toOptimizeRequest(pedidoResponseList, entregador, null));
+        }
+
         @Test
         void shouldMapVehicle() {
             // Given
@@ -49,6 +82,25 @@ class OpenRouteMapperTest {
             assertEquals(1, vehicles.size());
             assertEquals(entregador.getId().toString(), vehicles.getFirst().getId());
         }
+
+        @Test
+        void shouldReturnNullWhenEntregadorIsNullInMapVehicle() {
+            // Given
+            var origem = OrigemUtils.buildOrigem();
+
+            // When & Then
+            assertThrows(NullPointerException.class, () -> mapper.mapVehicle(null, origem));
+        }
+
+        @Test
+        void shouldReturnNullWhenOrigemIsNullInMapVehicle() {
+            // Given
+            var entregador = EntregadorUtils.buildEntregador();
+
+            // When & Then
+            assertThrows(NullPointerException.class, () -> mapper.mapVehicle(entregador, null));
+        }
+
         @Test
         void shouldMapJobs() {
             // Given
@@ -61,6 +113,12 @@ class OpenRouteMapperTest {
             assertNotNull(jobs);
             assertEquals(pedidoResponses.size(), jobs.size());
             assertEquals(pedidoResponses.getFirst().id().toString(), jobs.getFirst().getId());
+        }
+
+        @Test
+        void shouldReturnNullWhenPedidoResponsesIsNullInMapJobs() {
+            // When & Then
+            assertThrows(NullPointerException.class, () -> mapper.mapJobs(null));
         }
     }
 
@@ -78,6 +136,16 @@ class OpenRouteMapperTest {
             assertNotNull(request);
             assertEquals(rota.getParadas().size() + 1, request.getCoordinates().size());
         }
+
+        @Test
+        void shouldReturnNullWhenRotaIsNull() {
+            // When
+            var request = mapper.toDirectionsRequestFromRota(null);
+
+            // Then
+            assertNull(request);
+        }
+
         @Test
         void shouldMapCoordinates() {
             // Given
@@ -89,6 +157,12 @@ class OpenRouteMapperTest {
             // Then
             assertNotNull(coordinates);
             assertEquals(rota.getParadas().size() + 1, coordinates.size());
+        }
+
+        @Test
+        void shouldReturnNullWhenRotaIsNullInMapCoordinates() {
+            // When & Then
+            assertThrows(NullPointerException.class, () -> mapper.mapCoordinates(null));
         }
     }
 
@@ -107,6 +181,25 @@ class OpenRouteMapperTest {
             assertNotNull(request);
             assertEquals(2, request.getCoordinates().size());
         }
+
+        @Test
+        void shouldReturnNullWhenRastreamentoIsNull() {
+            // Given
+            var parada = ParadaUtils.buildParada();
+
+            // When & Then
+            assertThrows(NullPointerException.class, () -> mapper.toDirectionsRequestFromRastreamentoAndParada(null, parada));
+        }
+
+        @Test
+        void shouldReturnNullWhenParadaIsNull() {
+            // Given
+            var rastreamento = RastreamentoUtil.buildRastreamento();
+
+            // When & Then
+            assertThrows(NullPointerException.class, () -> mapper.toDirectionsRequestFromRastreamentoAndParada(rastreamento, null));
+        }
+
         @Test
         void shouldMapCoordinates() {
             // Given
@@ -119,6 +212,24 @@ class OpenRouteMapperTest {
             // Then
             assertNotNull(coordinates);
             assertEquals(2, coordinates.size());
+        }
+
+        @Test
+        void shouldReturnNullWhenRastreamentoIsNullInMapCoordinates() {
+            // Given
+            var parada = ParadaUtils.buildParada();
+
+            // When & Then
+            assertThrows(NullPointerException.class, () -> mapper.mapCoordinates(null, parada));
+        }
+
+        @Test
+        void shouldReturnNullWhenParadaIsNullInMapCoordinates() {
+            // Given
+            var rastreamento = RastreamentoUtil.buildRastreamento();
+
+            // When & Then
+            assertThrows(NullPointerException.class, () -> mapper.mapCoordinates(rastreamento, null));
         }
     }
 }

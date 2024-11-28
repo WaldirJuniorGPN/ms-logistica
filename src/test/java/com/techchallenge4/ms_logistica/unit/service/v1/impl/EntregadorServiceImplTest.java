@@ -13,7 +13,6 @@ import com.techchallenge4.ms_logistica.utils.MapperUtils;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mapstruct.factory.Mappers;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;

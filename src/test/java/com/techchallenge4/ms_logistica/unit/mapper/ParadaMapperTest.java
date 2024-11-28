@@ -10,10 +10,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class ParadaMapperTest {
 
-    private final ParadaMapper paradaMapper = MapperUtils.paradaMapper();
+    private final ParadaMapper mapper = MapperUtils.paradaMapper();
 
     @Nested
     class ToResponse {
@@ -23,7 +24,7 @@ class ParadaMapperTest {
             var parada = ParadaUtils.buildParada();
 
             // When
-            var response = paradaMapper.toResponse(parada);
+            var response = mapper.toResponse(parada);
 
             // Then
             assertNotNull(response);
@@ -36,6 +37,14 @@ class ParadaMapperTest {
             assertEquals(parada.getStatus(), response.status());
             assertEquals(parada.getObservacao(), response.observacao());
         }
+        @Test
+        void shouldReturnNullWhenParadaIsNull() {
+            // When
+            var response = mapper.toResponse(null);
+
+            // Then
+            assertNull(response);
+        }
     }
     @Nested
     class UpdateStatus {
@@ -46,10 +55,22 @@ class ParadaMapperTest {
             var request = new ParadaStatusRequest(PedidoStatusEnum.ENTREGUE);
 
             // When
-            paradaMapper.updateStatus(parada, request);
+            mapper.updateStatus(parada, request);
 
             // Then
             assertEquals(request.status(), parada.getStatus());
+        }
+        @Test
+        void shouldReturnSuccessfullyWhenRequestIsNull() {
+            // Given
+            var parada = ParadaUtils.buildParada();
+            var initialStatus = parada.getStatus();
+
+            // When
+            mapper.updateStatus(parada, null);
+
+            // Then
+            assertEquals(initialStatus, parada.getStatus());
         }
     }
 

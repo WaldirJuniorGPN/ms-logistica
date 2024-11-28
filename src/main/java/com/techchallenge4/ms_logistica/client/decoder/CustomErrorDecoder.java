@@ -26,8 +26,10 @@ public class CustomErrorDecoder implements ErrorDecoder {
         }
         return switch (response.status()) {
             case 400 -> buildFeignClientException(exception, "Bad Request", 400);
+            case 401 -> buildFeignClientException(exception, "Unauthorized", 401);
+            case 403 -> buildFeignClientException(exception, "Forbidden", 403);
             case 404 -> buildFeignClientException(exception, "Not Found", 404);
-            default -> errorDecoder.decode(methodKey, response);
+            default -> buildFeignClientException(exception, "Internal Server Error", 500);
         };
     }
 

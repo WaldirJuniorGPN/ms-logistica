@@ -128,7 +128,6 @@ class RastreamentoServiceImplTest {
         void shouldThrowResourceNotFoundExceptionWhenRotaNotFound() {
             // Given
             var pedidoId = 1L;
-            var rota = RotaUtils.buildRota();
 
             when(rotaService.findEntityByPedidoId(pedidoId)).thenThrow(new ResourceNotFoundException("not found"));
 

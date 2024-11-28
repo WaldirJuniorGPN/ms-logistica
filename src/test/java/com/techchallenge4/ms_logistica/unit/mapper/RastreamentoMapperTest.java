@@ -10,10 +10,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class RastreamentoMapperTest {
 
-    private final RastreamentoMapper rastreamentoMapper = MapperUtils.rastreamentoMapper();
+    private final RastreamentoMapper mapper = MapperUtils.rastreamentoMapper();
 
     @Nested
     class ToEntity {
@@ -24,13 +25,14 @@ class RastreamentoMapperTest {
             var request = RastreamentoUtil.buildRastreamentoRequest();
 
             // When
-            var rastreamento = rastreamentoMapper.toEntity(request, rota);
+            var rastreamento = mapper.toEntity(request, rota);
 
             // Then
             assertNotNull(rastreamento);
             assertEquals(request.latitude(), rastreamento.getUltimaLatitude());
             assertEquals(request.longitude(), rastreamento.getUltimaLongitude());
         }
+
         @Test
         void shouldMapUltimaLatitude() {
             // Given
@@ -38,11 +40,12 @@ class RastreamentoMapperTest {
             var request = RastreamentoUtil.buildRastreamentoRequest().withLatitude(null);
 
             // When
-            var rastreamento = rastreamentoMapper.toEntity(request, rota);
+            var rastreamento = mapper.toEntity(request, rota);
 
             // Then
             assertNull(rastreamento.getUltimaLatitude());
         }
+
         @Test
         void shouldMapUltimaLongitude() {
             // Given
@@ -50,10 +53,35 @@ class RastreamentoMapperTest {
             var request = RastreamentoUtil.buildRastreamentoRequest().withLongitude(null);
 
             // When
-            var rastreamento = rastreamentoMapper.toEntity(request, rota);
+            var rastreamento = mapper.toEntity(request, rota);
 
             // Then
             assertNull(rastreamento.getUltimaLongitude());
+        }
+
+        @Test
+        void shouldReturnNullWhenRequestIsNull() {
+            // Given
+            var rota = RotaUtils.buildRota();
+
+            // When
+            var rastreamento = mapper.toEntity(null, rota);
+
+            // Then
+            assertNull(rastreamento.getUltimaLatitude());
+            assertNull(rastreamento.getUltimaLongitude());
+        }
+
+        @Test
+        void shouldReturnNullWhenRotaIsNull() {
+            // Given
+            var request = RastreamentoUtil.buildRastreamentoRequest();
+
+            // When
+            var rastreamento = mapper.toEntity(request, null);
+
+            // Then
+            assertNull(rastreamento.getRota());
         }
     }
 
@@ -68,12 +96,13 @@ class RastreamentoMapperTest {
                     .withLongitude(2.0);
 
             // When
-            rastreamentoMapper.updateUltimaPosicao(rastreamento, request);
+            mapper.updateUltimaPosicao(rastreamento, request);
 
             // Then
             assertEquals(request.latitude(), rastreamento.getUltimaLatitude());
             assertEquals(request.longitude(), rastreamento.getUltimaLongitude());
         }
+
         @Test
         void shouldIgnoreRota() {
             // Given
@@ -84,10 +113,31 @@ class RastreamentoMapperTest {
                     .withRotaId(rastreamento.getId() + 1);
 
             // When
-            rastreamentoMapper.updateUltimaPosicao(rastreamento, request);
+            mapper.updateUltimaPosicao(rastreamento, request);
 
             // Then
             assertEquals(initialRotaId, rastreamento.getId());
+        }
+
+        @Test
+        void shouldDoNothingWhenRequestIsNull() {
+            // Given
+            var rastreamento = RastreamentoUtil.buildRastreamento();
+
+            // When
+            mapper.updateUltimaPosicao(rastreamento, null);
+
+            // Then
+            assertNotNull(rastreamento);
+        }
+
+        @Test
+        void shouldThrowExceptionWhenRastreamentoIsNull() {
+            // Given
+            var request = RastreamentoUtil.buildRastreamentoRequest();
+
+            // When & Then
+            assertThrows(NullPointerException.class, () -> mapper.updateUltimaPosicao(null, request));
         }
     }
 
@@ -99,7 +149,7 @@ class RastreamentoMapperTest {
             var rastreamento = RastreamentoUtil.buildRastreamento();
 
             // When
-            var response = rastreamentoMapper.toResponse(rastreamento);
+            var response = mapper.toResponse(rastreamento);
 
             // Then
             assertNotNull(response);
@@ -107,17 +157,26 @@ class RastreamentoMapperTest {
             assertEquals(rastreamento.getUltimaLatitude(), response.ultimaLatitude());
             assertEquals(rastreamento.getUltimaLongitude(), response.ultimaLongitude());
         }
+
         @Test
         void shouldMapRotaId() {
             // Given
             var rastreamento = RastreamentoUtil.buildRastreamento();
 
             // When
-            var response = rastreamentoMapper.toResponse(rastreamento);
+            var response = mapper.toResponse(rastreamento);
 
             // Then
             assertEquals(rastreamento.getRota().getId(), response.rotaId());
         }
-    }
 
+        @Test
+        void shouldReturnNullWhenRastreamentoIsNull() {
+            // When
+            var response = mapper.toResponse(null);
+
+            // Then
+            assertNull(response);
+        }
+    }
 }

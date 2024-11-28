@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class OrigemMapperTest {
 
@@ -139,6 +140,11 @@ class OrigemMapperTest {
             assertNotNull(result);
             assertEquals(EstadoEnum.SP, result);
         }
+        @Test
+        void shouldThrowIllegalArgumentExpcetionWhenCepIsNull() {
+            // When & Then
+            assertThrows(IllegalArgumentException.class, () -> mapper.cepToEstado(null));
+        }
     }
 
     @Nested
@@ -154,6 +160,11 @@ class OrigemMapperTest {
             // Then
             assertNotNull(result);
             assertEquals(RegiaoEnum.SUDESTE, result);
+        }
+        @Test
+        void shouldThrowIllegalArgumentExpcetionWhenCepIsNull() {
+            // When & Then
+            assertThrows(IllegalArgumentException.class, () -> mapper.cepToRegiao(null));
         }
     }
 

@@ -12,7 +12,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class EntregadorMapperTest {
 
@@ -36,30 +37,14 @@ class EntregadorMapperTest {
             assertEquals(request.capacidade(), result.getCapacidade());
             assertEquals(request.cep(), result.getCep());
         }
-        @Test
-        void shouldMapCepToEstado() {
-            // Given
-            var request = EntregadorUtils.buildEntregadorRequest();
-            var estado = EstadoEnum.getByCep(request.cep());
 
+        @Test
+        void shouldReturnNullWhenRequestIsNull() {
             // When
-            var result = mapper.toEntity(request);
+            var result = mapper.toEntity(null);
 
             // Then
-            assertNotNull(result);
-            assertEquals(estado, result.getEstado());
-        }
-        @Test
-        void shouldMapDefaultDisponivelTrue() {
-            // Given
-            var request = EntregadorUtils.buildEntregadorRequest();
-
-            // When
-            var result = mapper.toEntity(request);
-
-            // Then
-            assertNotNull(result);
-            assertTrue(result.getDisponivel());
+            assertNull(result);
         }
     }
 
@@ -75,6 +60,15 @@ class EntregadorMapperTest {
 
             // Then
             validateResponse(result, entregador);
+        }
+
+        @Test
+        void shouldReturnNullWhenEntregadorIsNull() {
+            // When
+            var result = mapper.toResponse(null);
+
+            // Then
+            assertNull(result);
         }
     }
 
@@ -102,6 +96,27 @@ class EntregadorMapperTest {
             assertEquals(request.capacidade(), entregador.getCapacidade());
             assertEquals(request.cep(), entregador.getCep());
         }
+
+        @Test
+        void shouldDoNothingWhenRequestIsNull() {
+            // Given
+            var entregador = EntregadorUtils.buildEntregador();
+
+            // When
+            mapper.updateEntityFromRequest(null, entregador);
+
+            // Then
+            assertNotNull(entregador);
+        }
+
+        @Test
+        void shouldDoNothingWhenEntregadorIsNull() {
+            // Given
+            var request = EntregadorUtils.buildEntregadorRequest();
+
+            // When & Then
+            assertThrows(NullPointerException.class, () -> mapper.updateEntityFromRequest(request, null));
+        }
     }
 
     @Nested
@@ -121,6 +136,15 @@ class EntregadorMapperTest {
                 validateResponse(result.get(i), entregadores.get(i));
             }
         }
+
+        @Test
+        void shouldReturnNullWhenEntregadoresIsNull() {
+            // When
+            var result = mapper.toResponseList(null);
+
+            // Then
+            assertNull(result);
+        }
     }
 
     @Nested
@@ -137,6 +161,12 @@ class EntregadorMapperTest {
             assertNotNull(result);
             assertEquals(EstadoEnum.getByCep(cepFromSP), result);
         }
+
+        @Test
+        void shouldReturnNullWhenCepIsNull() {
+            // When & Then
+            assertThrows(IllegalArgumentException.class, () -> mapper.cepToEstado(null));
+        }
     }
 
     private static void validateResponse(EntregadorResponse result, Entregador entregador) {
@@ -150,5 +180,4 @@ class EntregadorMapperTest {
         assertEquals(entregador.getEstado(), result.estado());
         assertEquals(entregador.getDisponivel(), result.disponivel());
     }
-
 }

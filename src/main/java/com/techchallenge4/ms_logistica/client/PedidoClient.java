@@ -14,10 +14,10 @@ import java.util.List;
 @FeignClient(value = "pedido-service", url = "${services.pedido-service.url}")
 public interface PedidoClient {
 
-    @GetMapping("/pedidos")
-    List<PedidoResponse> getPedidosByEstadoEStatus(@RequestParam EstadoEnum estado, @RequestParam PedidoStatusEnum status);
+    @GetMapping("/interno/pedidos")
+    List<PedidoResponse> getPedidosByEstadoEStatus(@RequestParam EstadoEnum uf, @RequestParam PedidoStatusEnum status);
 
-    @PatchMapping("/pedidos/{id}/status/{status}")
+    @PatchMapping("/interno/pedidos/{id}/status/{status}")
     PedidoResponse updatePedidoStatus(@PathVariable Long id, @PathVariable PedidoStatusEnum status);
 
 }

@@ -2,18 +2,18 @@ package com.techchallenge4.ms_logistica.client.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 
 import java.util.List;
 
-@Data
+@Getter
 @Builder
 public class OptimizeResponse {
     private Integer code;
     private Summary summary;
     private List<Route> routes;
 
-    @Data
+    @Getter
     @Builder
     public static class Summary {
         private Integer cost;
@@ -31,7 +31,7 @@ public class OptimizeResponse {
         @JsonProperty("computing_times")
         private ComputingTimes computingTimes;
 
-        @Data
+        @Getter
         @Builder
         public static class ComputingTimes {
             private Integer loading;
@@ -40,7 +40,7 @@ public class OptimizeResponse {
         }
     }
 
-    @Data
+    @Getter
     @Builder
     public static class Route {
         private Integer vehicle;
@@ -56,7 +56,7 @@ public class OptimizeResponse {
         private Integer priority;
         private List<Step> steps;
 
-        @Data
+        @Getter
         @Builder
         public static class Step {
             private String type;

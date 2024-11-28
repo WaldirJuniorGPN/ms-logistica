@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class EstadoEnumTest {
 
@@ -16,13 +17,18 @@ class EstadoEnumTest {
         void shouldReturnSuccessfully() {
             // Given
             var cep = "12345678";
+            var expected = EstadoEnum.SP;
 
             // When
             var estado = EstadoEnum.getByCep(cep);
 
             // Then
             assertNotNull(estado);
-            assertEquals(EstadoEnum.SP, estado);
+            assertEquals(expected, estado);
+            assertEquals(expected.getEstado(), estado.getEstado());
+            assertEquals(expected.getCepInicio(), estado.getCepInicio());
+            assertEquals(expected.getCepFim(), estado.getCepFim());
+            assertEquals(expected.getRegiao(), estado.getRegiao());
         }
         @Test
         void shouldThrowIllegalArgumentExceptionWhenCepIsNull() {

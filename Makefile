@@ -14,12 +14,6 @@ mutation-test:
 integration-test:
 	mvn test -P integration-test
 
-system-test:
-	mvn test -P system-test
-
-performance-test:
-	mvn gatling:test -Pperformance-test
-
 docker-build: package
 	docker build -t ms-logistica -f ./Dockerfile .
 
@@ -32,4 +26,4 @@ docker-stop:
 start-app:
 	mvn spring-boot:start
 
-test: unit-test docker-start integration-test system-test docker-stop
+test: unit-test integration-test

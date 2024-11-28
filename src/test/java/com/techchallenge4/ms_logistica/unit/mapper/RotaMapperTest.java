@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 class RotaMapperTest {
 
-    private final RotaMapper rotaMapper = MapperUtils.rotaMapper();
+    private final RotaMapper mapper = MapperUtils.rotaMapper();
 
     @Nested
     class ToRotaResponse {
@@ -29,7 +29,7 @@ class RotaMapperTest {
             var rota = RotaUtils.buildRota();
 
             // When
-            var response = rotaMapper.toRotaResponse(rota);
+            var response = mapper.toRotaResponse(rota);
 
             // Then
             assertNotNull(response);
@@ -38,6 +38,15 @@ class RotaMapperTest {
             assertEquals(rota.getOrigem().getId(), response.origem().id());
             assertEquals(rota.getEntregador().getId(), response.entregador().id());
             assertEquals(rota.getParadas().size(), response.paradas().size());
+        }
+
+        @Test
+        void shouldReturnNullWhenRotaIsNull() {
+            // When
+            var response = mapper.toRotaResponse(null);
+
+            // Then
+            assertNull(response);
         }
     }
 
@@ -51,7 +60,7 @@ class RotaMapperTest {
             var origem = OrigemUtils.buildOrigem();
 
             // When
-            var rota = rotaMapper.toRota(route, entregador, origem);
+            var rota = mapper.toRota(route, entregador, origem);
 
             // Then
             assertNotNull(rota);
@@ -68,7 +77,7 @@ class RotaMapperTest {
             var origem = OrigemUtils.buildOrigem();
 
             // When
-            Rota rota = rotaMapper.toRota(route, entregador, origem);
+            Rota rota = mapper.toRota(route, entregador, origem);
 
             // Then
             assertNull(rota.getId());
@@ -82,7 +91,7 @@ class RotaMapperTest {
             var origem = OrigemUtils.buildOrigem();
 
             // When
-            var rota = rotaMapper.toRota(route, entregador, origem);
+            var rota = mapper.toRota(route, entregador, origem);
 
             // Then
             assertEquals("PENDENTE", rota.getStatus().name());
@@ -96,12 +105,51 @@ class RotaMapperTest {
             var origem = OrigemUtils.buildOrigem();
 
             // When
-            var rota = rotaMapper.toRota(route, entregador, origem);
+            var rota = mapper.toRota(route, entregador, origem);
 
             // Then
             assertNotNull(rota.getParadas());
             assertFalse(rota.getParadas().isEmpty());
             assertEquals(route.getSteps().size(), rota.getParadas().size());
+        }
+
+        @Test
+        void shouldReturnParadasNullWhenRouteIsNull() {
+            // Given
+            var entregador = EntregadorUtils.buildEntregador();
+            var origem = OrigemUtils.buildOrigem();
+
+            // When
+            var rota = mapper.toRota(null, entregador, origem);
+
+            // Then
+            assertNull(rota.getParadas());
+        }
+
+        @Test
+        void shouldReturnEntregadorNullWhenEntregadorIsNull() {
+            // Given
+            var route = OpenRouteUtils.buildOptimizeRoute("job", List.of(10.0, 20.0), 1);
+            var origem = OrigemUtils.buildOrigem();
+
+            // When
+            var rota = mapper.toRota(route, null, origem);
+
+            // Then
+            assertNull(rota.getEntregador());
+        }
+
+        @Test
+        void shouldReturnOrigemNullWhenOrigemIsNull() {
+            // Given
+            var route = OpenRouteUtils.buildOptimizeRoute("job", List.of(10.0, 20.0), 1);
+            var entregador = EntregadorUtils.buildEntregador();
+
+            // When
+            var rota = mapper.toRota(route, entregador, null);
+
+            // Then
+            assertNull(rota.getOrigem());
         }
     }
 }
