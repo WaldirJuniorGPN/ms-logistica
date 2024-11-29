@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:postgresql://35.229.87.120/logistica?autoReconnect=true
     username: postgres
-    password: GJFE`jxpTZ7^xqF
+    password: GJFE`jxp*TZ7^xqF
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
