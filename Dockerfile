@@ -7,6 +7,6 @@ RUN mvn clean package -Dmaven.test.skip=true
 FROM amazoncorretto:21
 ARG JAR_FILE=target/*.jar
 COPY --from=build /ms-logistica/${JAR_FILE} /ms-logistica/ms-logistica.jar
-EXPOSE 8080
+EXPOSE 8083
 
 ENTRYPOINT ["java", "-jar", "/ms-logistica/ms-logistica.jar"]
