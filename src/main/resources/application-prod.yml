@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://${POSTGRES_HOST}/${POSTGRES_DATABASE}?autoReconnect=true
-    username: ${POSTGRES_USERNAME}
-    password: ${POSTGRES_PASSWORD}
+    url: jdbc:postgresql://35.229.87.120/logistica?autoReconnect=true
+    username: postgres
+    password: GJFE`jxpTZ7^xqF
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
