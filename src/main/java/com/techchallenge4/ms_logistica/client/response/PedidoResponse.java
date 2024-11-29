@@ -12,10 +12,9 @@ public record PedidoResponse(
         Long clienteId,
         Long produtoId,
         Integer quantidade,
-        Double latitude,
-        Double longitude,
         LocalDateTime dataHoraCriacao,
+        EnderecoResponse endereco,
         PedidoStatusEnum status,
-        EstadoEnum estado
+        EstadoEnum uf
 ) {
 }

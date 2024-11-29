@@ -20,6 +20,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest({EntregadorController.class, ControllerExceptionHandler.class})
 class ControllerExceptionHandlerTest {
 
+    private static final String BASE_URL = "/logistica/entregador";
+    private static final String ID_URL = BASE_URL + "/{id}";
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -34,7 +37,7 @@ class ControllerExceptionHandlerTest {
             doThrow(new FeignClientException("Invalid request", 400)).when(service).findById(1L);
 
             // When
-            var result = mockMvc.perform(get("/entregador/1")
+            var result = mockMvc.perform(get(ID_URL, 1)
                     .contentType(MediaType.APPLICATION_JSON));
 
             // Then
@@ -50,7 +53,7 @@ class ControllerExceptionHandlerTest {
             doThrow(new ResourceNotFoundException("Resource not found")).when(service).findById(1L);
 
             // When
-            var result = mockMvc.perform(get("/entregador/1")
+            var result = mockMvc.perform(get(ID_URL, 1)
                     .contentType(MediaType.APPLICATION_JSON));
 
             // Then
@@ -66,7 +69,7 @@ class ControllerExceptionHandlerTest {
             doThrow(new RuntimeException("Internal Server Error")).when(service).findById(1L);
 
             // When
-            var result = mockMvc.perform(get("/entregador/1")
+            var result = mockMvc.perform(get(ID_URL, 1)
                     .contentType(MediaType.APPLICATION_JSON));
 
             // Then
@@ -82,7 +85,7 @@ class ControllerExceptionHandlerTest {
             doThrow(new IllegalArgumentException("Bad request")).when(service).findById(1L);
 
             // When
-            var result = mockMvc.perform(get("/entregador/1")
+            var result = mockMvc.perform(get(ID_URL, 1)
                     .contentType(MediaType.APPLICATION_JSON));
 
             // Then

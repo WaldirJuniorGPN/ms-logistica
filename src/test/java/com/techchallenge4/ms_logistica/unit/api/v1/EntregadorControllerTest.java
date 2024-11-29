@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(EntregadorController.class)
 class EntregadorControllerTest extends AbstractControllerTest {
 
-    private static final String BASE_URL = "/entregador";
+    private static final String BASE_URL = "/logistica/entregador";
     private static final String ID_URL = BASE_URL + "/{id}";
 
     @MockBean

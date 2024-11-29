@@ -39,7 +39,7 @@ public interface OpenRouteMapper {
         return pedidoResponses.stream()
                 .map(pedido -> OptimizeRequest.Job.builder()
                         .id(String.valueOf(pedido.id()))
-                        .location(List.of(pedido.longitude(), pedido.latitude()))
+                        .location(List.of(pedido.endereco().longitude(), pedido.endereco().latitude()))
                         .service(300)
                         .amount(pedido.quantidade())
                         .build())

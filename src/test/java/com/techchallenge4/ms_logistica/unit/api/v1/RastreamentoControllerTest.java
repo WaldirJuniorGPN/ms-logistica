@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(RastreamentoController.class)
 class RastreamentoControllerTest extends AbstractControllerTest {
 
-    private static final String BASE_URL = "/rastreamento";
+    private static final String BASE_URL = "/logistica/rastreamento";
     private static final String ENTREGADOR_URL = BASE_URL + "/entregador/{entregadorId}";
     private static final String PEDIDO_URL = BASE_URL + "/pedido/{pedidoId}";
 

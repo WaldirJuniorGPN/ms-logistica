@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(OrigemController.class)
 class OrigemControllerTest extends AbstractControllerTest {
 
-    private static final String BASE_URL = "/origem";
+    private static final String BASE_URL = "/logistica/origem";
     private static final String ID_URL = BASE_URL + "/{id}";
 
     @MockBean

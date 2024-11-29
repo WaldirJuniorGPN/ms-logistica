@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(ParadaController.class)
 class ParadaControllerTest extends AbstractControllerTest {
 
-    private static final String BASE_URL = "/parada";
+    private static final String BASE_URL = "/logistica/parada";
     private static final String ID_URL = BASE_URL + "/{id}";
     private static final String ID_STATUS_URL = ID_URL + "/status";
 
