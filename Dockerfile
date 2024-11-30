@@ -9,4 +9,10 @@ ARG JAR_FILE=target/*.jar
 COPY --from=build /ms-logistica/${JAR_FILE} /ms-logistica/ms-logistica.jar
 EXPOSE 8083
 
+ENV
+DB_HOSTNAME=''
+DB_USERNAME=''
+DB_PASSWORD=''
+OPENROUTE_API_KEY=''
+
 ENTRYPOINT ["java", "-jar", "/ms-logistica/ms-logistica.jar"]
