@@ -7,10 +7,3 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: create-drop
-
-services:
-  pedido-service:
-    url: https://render.com
-  open-route-service:
-    url: https://api.openrouteservice.org
-    api-key: 5b3ce3597851110001cf624839aa9d93ba9c42f9846bc5b293ea3964

@@ -14,6 +14,7 @@ import com.techchallenge4.ms_logistica.service.v1.OpenRouteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -32,6 +33,7 @@ public class OpenRouteServiceImpl implements OpenRouteService {
 
     @Override
     public DirectionsResponse getDirectionsByRota(Rota rota) {
+        rota.getParadas().sort(Comparator.comparing(Parada::getSequencia));
         return client.getDirections(DEFAULT_PROFILE, mapper.toDirectionsRequestFromRota(rota));
     }
 

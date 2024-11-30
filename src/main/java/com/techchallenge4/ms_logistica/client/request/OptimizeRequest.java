@@ -21,10 +21,11 @@ public class OptimizeRequest {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Vehicle {
-        private String id;
+        private Long id;
         private List<Double> start;
         private List<Double> end;
-        private Integer capacity;
+        private List<Integer> capacity;
+        private String profile;
     }
 
     @Data
@@ -32,10 +33,10 @@ public class OptimizeRequest {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Job {
-        private String id;
+        private Long id;
         private List<Double> location;
         private Integer service;
-        private Integer amount;
+        private List<Integer> amount;
     }
 
 }

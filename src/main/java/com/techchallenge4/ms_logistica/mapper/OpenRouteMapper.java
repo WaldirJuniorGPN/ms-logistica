@@ -25,23 +25,23 @@ public interface OpenRouteMapper {
     OptimizeRequest toOptimizeRequest(List<PedidoResponse> pedidoResponseList, Entregador entregador, @Context Origem origem);
 
     default List<OptimizeRequest.Vehicle> mapVehicle(Entregador entregador, @Context Origem origem) {
-        OptimizeRequest.Vehicle vehicle = OptimizeRequest.Vehicle.builder()
-                .id(String.valueOf(entregador.getId()))
+        return List.of(OptimizeRequest.Vehicle.builder()
+                .id(entregador.getId())
                 .start(List.of(origem.getLongitude(), origem.getLatitude()))
                 .end(List.of(origem.getLongitude(), origem.getLatitude()))
-                .capacity(entregador.getCapacidade())
-                .build();
-        return List.of(vehicle);
+                .capacity(List.of(entregador.getCapacidade()))
+                .profile("driving-car")
+                .build());
     }
 
     @Named("mapJobs")
     default List<OptimizeRequest.Job> mapJobs(List<PedidoResponse> pedidoResponses) {
         return pedidoResponses.stream()
                 .map(pedido -> OptimizeRequest.Job.builder()
-                        .id(String.valueOf(pedido.id()))
+                        .id(pedido.id())
                         .location(List.of(pedido.endereco().longitude(), pedido.endereco().latitude()))
                         .service(300)
-                        .amount(pedido.quantidade())
+                        .amount(List.of(pedido.quantidade()))
                         .build())
                 .toList();
     }

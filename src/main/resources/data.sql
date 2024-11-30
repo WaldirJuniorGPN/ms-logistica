@@ -1,5 +1,5 @@
 INSERT INTO Origem (nome, endereco, latitude, longitude, cep, estado, regiao) VALUES
-('Norte Distribution Center', 'Avenida Gov. José Malcher, 123, Belém, PA', -1.455023, -48.503715, '66035-200', 3, 0),
+('Norte Distribution Center', 'Avenida Gov. José Malcher, 123, Belém, PA', -1.456418853349126, -48.50325323754242, '66035-200', 3, 0),
 ('Nordeste Distribution Center', 'Rua da Aurora, 500, Recife, PE', -8.062823, -34.873303, '50050-000', 11, 1),
 ('Centro-Oeste Distribution Center', 'Eixo Monumental, 2000, Brasília, DF', -15.793889, -47.882778, '70040-010', 16, 2),
 ('Sudeste Distribution Center', 'Avenida Paulista, 1000, São Paulo, SP', -23.561732, -46.655981, '01310-000', 20, 3),

@@ -41,8 +41,8 @@ public interface RotaMapper {
 
     default Parada createParadaFromStep(OptimizeResponse.Route.Step step, long sequencia) {
         var location = step.getLocation();
-        var latitude = location.get(0);
-        var longitude = location.get(1);
+        var longitude = location.get(0);
+        var latitude = location.get(1);
 
         return Parada.builder()
                 .sequencia(sequencia)

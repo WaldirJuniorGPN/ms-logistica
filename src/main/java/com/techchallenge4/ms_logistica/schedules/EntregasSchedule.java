@@ -24,7 +24,7 @@ public class EntregasSchedule {
 
     private static final int STATE_INTERVAL_MINUTES = 10;
 
-    @Scheduled(cron = "0 0 12 * * ?")
+    @Scheduled(cron = "0 0 1 * * ?")
     public void processarPedidosPorEstado() {
         EnumSet.allOf(EstadoEnum.class).forEach(state ->
             scheduler.schedule(

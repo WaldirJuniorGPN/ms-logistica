@@ -19,7 +19,7 @@ spring:
 
 services:
   pedido-service:
-    url: https://localhost:8081
+    url: http://localhost:8082
   open-route-service:
     url: https://api.openrouteservice.org
     api-key: 5b3ce3597851110001cf624839aa9d93ba9c42f9846bc5b293ea3964

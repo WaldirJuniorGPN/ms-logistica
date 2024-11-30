@@ -19,8 +19,7 @@ public class CustomErrorDecoder implements ErrorDecoder {
     public Exception decode(String methodKey, Response response) {
         ExceptionMessage exception;
         try (InputStream bodyIs = response.body().asInputStream()) {
-            ObjectMapper mapper = new ObjectMapper();
-            exception = mapper.readValue(bodyIs, ExceptionMessage.class);
+            exception = new ObjectMapper().readValue(bodyIs, ExceptionMessage.class);
         } catch (IOException e) {
             return new Exception(e.getMessage());
         }
